@@ -14,19 +14,19 @@ springfox:
 
 spring:
   datasource:
-    #url: jdbc:postgresql://localhost:5432/postgres?currentSchema=apl_restaurants
-    platform: h2
-    driver-class-name: org.h2.Driver
-    url: jdbc:h2:mem:testdb;Mode=PostgreSQL;INIT=RUNSCRIPT FROM 'src/main/resources/db/db.sql'
-    username: user
-    password: 1234
-  h2:
-    console:
-      enabled: true
+    #platform: h2
+    #driver-class-name: org.h2.Driver
+    #url: jdbc:h2:mem:testdb;Mode=PostgreSQL;INIT=RUNSCRIPT FROM 'src/main/resources/db/db.sql'
+    #username: user
+    #password: 1234
+    url: jdbc:sqlserver://api-restaurants.database.windows.net:1433;databaseName=apidatabase
+    driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+    username: apiadmin@api-restaurants
+    password: apipass#01
   jpa:
-    hibernate:
-      ddl-auto: create
+    #hibernate:
+      #ddl-auto: create
     show-sql: true
     properties:
       hibernate:
-        dialect: org.hibernate.dialect.PostgreSQL10Dialect
+        dialect: org.hibernate.dialect.SQLServer2012Dialect

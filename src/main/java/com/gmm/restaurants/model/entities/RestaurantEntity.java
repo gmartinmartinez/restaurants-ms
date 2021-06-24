@@ -5,6 +5,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
@@ -28,17 +29,16 @@ import org.hibernate.annotations.Parameter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@Table(name = "BOOKING", schema = "apl_restaurants")
+@Table(name = "RESTAURANT", schema = "apl_restaurants")
 @GenericGenerator(name = "RestaurantSequence", strategy = "org.hibernate.id.enhanced.SequenceStyleGenerator",
     parameters = {
         @Parameter(name = "sequence_name", value = "apl_restaurants.restaurant_id_seq"),
-        @Parameter(name = "start_value", value = "0"),
         @Parameter(name = "increment_size", value = "1")
     })
 public class RestaurantEntity {
 
     @Id
-    @GeneratedValue(generator = "RestaurantSequence")
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
     @Column(name = "id")
     private Integer id;
 
