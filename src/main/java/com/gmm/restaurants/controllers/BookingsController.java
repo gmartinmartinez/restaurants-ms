@@ -80,9 +80,11 @@ public class BookingsController {
 
         @ApiResponse(responseCode = "400", description = "Bad Request", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorResponse.class))),
 
+        @ApiResponse(responseCode = "404", description = "Not Found", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorResponse.class))),
+
         @ApiResponse(responseCode = "500", description = "Internal Server Error", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorResponse.class))) })
-    @GetMapping(value = "/{restaurantid}/bookings'", produces = { "application/json" })
-    public ResponseEntity<List<BookingModel>> getRestaurantBookings(@Parameter(in = ParameterIn.PATH, description = "The restaurant identifier.", required=true, schema=@Schema()) @PathVariable("restaurantid") Integer restaurantId) {
+    @GetMapping(value = "/{restaurantId}/bookings'", produces = { "application/json" })
+    public ResponseEntity<List<BookingModel>> getRestaurantBookings(@Parameter(in = ParameterIn.PATH, description = "The restaurant identifier.", required=true, schema=@Schema()) @PathVariable("restaurantId") Integer restaurantId) {
         log.info("Get restaurant bookings list");
         return new ResponseEntity<List<BookingModel>>(service.getList(restaurantId), HttpStatus.OK);
     }
@@ -93,9 +95,11 @@ public class BookingsController {
 
         @ApiResponse(responseCode = "400", description = "Bad Request", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorResponse.class))),
 
+        @ApiResponse(responseCode = "404", description = "Not Found", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorResponse.class))),
+
         @ApiResponse(responseCode = "500", description = "Internal Server Error", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorResponse.class))) })
-    @PostMapping(value = "/{restaurantid}/bookings'", produces = { "application/json" }, consumes = { "application/json" })
-    public ResponseEntity<BookingModel> createRestaurantBooking(@Parameter(in = ParameterIn.PATH, description = "The restaurant identifier.", required=true, schema=@Schema()) @PathVariable("restaurantid") Integer restaurantId,@Parameter(in = ParameterIn.DEFAULT, description = "The information of the booking.", schema=@Schema()) @Valid @RequestBody BookingRequestModel body) {
+    @PostMapping(value = "/{restaurantId}/bookings'", produces = { "application/json" }, consumes = { "application/json" })
+    public ResponseEntity<BookingModel> createRestaurantBooking(@Parameter(in = ParameterIn.PATH, description = "The restaurant identifier.", required=true, schema=@Schema()) @PathVariable("restaurantId") Integer restaurantId,@Parameter(in = ParameterIn.DEFAULT, description = "The information of the booking.", schema=@Schema()) @Valid @RequestBody BookingRequestModel body) {
         log.info("Create restaurant booking");
         return new ResponseEntity<BookingModel>(service.create(restaurantId, body), HttpStatus.OK);
     }

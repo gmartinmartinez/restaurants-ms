@@ -29,7 +29,20 @@ public class BookingServiceImpl implements BookingService {
 
     @Override
     public BookingModel get(Integer restaurantId, Integer bookingId) {
-        return mapEntityToModel(bookingRepository.findByIdAndRestaurant(bookingId, restaurantId));
+
+        try {
+            restaurantRepository.getOne(restaurantId).getAddress();
+        } catch (EntityNotFoundException e) {
+            log.error(e.getMessage());
+            throw new NotFoundException("restaurant", restaurantId);
+        }
+
+        try {
+            return mapEntityToModel(bookingRepository.getOne(bookingId));
+        } catch (EntityNotFoundException e) {
+            log.error(e.getMessage());
+            throw new NotFoundException("booking", bookingId);
+        }
     }
 
     @Override
@@ -48,12 +61,25 @@ public class BookingServiceImpl implements BookingService {
 
     @Override
     public BookingModel create(Integer restaurantId, BookingRequestModel request) {
+        try {
+            restaurantRepository.getOne(restaurantId).getAddress();
+        } catch (EntityNotFoundException e) {
+            log.error(e.getMessage());
+            throw new NotFoundException("restaurant", restaurantId);
+        }
         return mapEntityToModel(bookingRepository.saveAndFlush(mapRequestToEntity(request, restaurantId)));
     }
 
     @Override
     public void delete(Integer restaurantId, Integer bookingId) {
-        if (bookingRepository.findByIdAndRestaurant(bookingId, restaurantId)!=null) {
+        try {
+            restaurantRepository.getOne(restaurantId).getAddress();
+        } catch (EntityNotFoundException e) {
+            log.error(e.getMessage());
+            throw new NotFoundException("restaurant", restaurantId);
+        }
+
+        if (bookingRepository.findById(bookingId)!=null) {
             bookingRepository.deleteById(bookingId);
         } else {
             throw new NotFoundException("booking", bookingId);

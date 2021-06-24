@@ -11,6 +11,7 @@ import com.gmm.restaurants.repositories.MenuRepository;
 import com.gmm.restaurants.repositories.RestaurantRepository;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 import javax.persistence.EntityNotFoundException;
 import lombok.extern.slf4j.Slf4j;
@@ -53,7 +54,10 @@ public class MenuServiceImpl implements MenuService{
         } catch (EntityNotFoundException e) {
             log.error(e.getMessage());
             throw new NotFoundException("restaurant", restaurantId);
+        }  catch (NoSuchElementException ex) {
+            throw new NotFoundException("menu", menuId);
         }
+
     }
 
     private SummaryMenuModel mapEntityToSummaryMenuModel(MenuEntity entity){

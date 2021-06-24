@@ -30,7 +30,7 @@ public class ReviewServiceImpl implements ReviewService{
     @Override
     public ReviewModel get(Integer restaurantId, Integer reviewId) {
         try {
-            Integer id = restaurantRepository.getOne(restaurantId).getId();
+            restaurantRepository.getOne(restaurantId).getAddress();
         } catch (EntityNotFoundException e) {
             log.error(e.getMessage());
             throw new NotFoundException("restaurant", restaurantId);
@@ -62,22 +62,29 @@ public class ReviewServiceImpl implements ReviewService{
     @Override
     public ReviewModel create(Integer restaurantId, ReviewRequestModel request) {
         try {
-            restaurantRepository.getOne(restaurantId);
-            return mapEntityToModel(reviewRepository.saveAndFlush(mapRequestToEntity(request, restaurantId)));
+            restaurantRepository.getOne(restaurantId).getAddress();
         } catch (EntityNotFoundException e) {
             log.error(e.getMessage());
             throw new NotFoundException("restaurant", restaurantId);
         }
+        return mapEntityToModel(reviewRepository.saveAndFlush(mapRequestToEntity(request, restaurantId)));
     }
 
     @Override
     public ReviewModel update(Integer restaurantId, Integer reviewId, ReviewRequestModel request) {
-        ReviewEntity entity = reviewRepository.findByIdAndRestaurant(reviewId, restaurantId);
-        if (entity!=null) {
+        try {
+            restaurantRepository.getOne(restaurantId).getAddress();
+        } catch (EntityNotFoundException e) {
+            log.error(e.getMessage());
+            throw new NotFoundException("restaurant", restaurantId);
+        }
+        try {
+            ReviewEntity entity = reviewRepository.getOne(reviewId);
             ReviewEntity updateEntity = mapRequestToEntity(request, restaurantId);
             updateEntity.setId(entity.getId());
             return mapEntityToModel(reviewRepository.saveAndFlush(updateEntity));
-        } else {
+        } catch (EntityNotFoundException e) {
+            log.error(e.getMessage());
             throw new NotFoundException("review", reviewId);
         }
     }
