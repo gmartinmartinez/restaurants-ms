@@ -38,7 +38,7 @@ public class MenuEntity {
     @ManyToMany
     @Fetch(FetchMode.SUBSELECT)
     @JoinTable(name = "DISH_IN_MENU", schema = "apl_restaurants",
-        joinColumns = @JoinColumn(name = "dish_id", referencedColumnName = "id"),
-        inverseJoinColumns = @JoinColumn(name = "menu_id", referencedColumnName = "id"))
+        joinColumns = @JoinColumn(name = "menu_id", referencedColumnName = "id"),
+        inverseJoinColumns = @JoinColumn(name = "dish_id", referencedColumnName = "id"))
     private List<DishEntity> dishes;
 }

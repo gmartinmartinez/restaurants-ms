@@ -57,7 +57,7 @@ public class BookingEntity {
     @Column(name = "comments")
     private String comments;
 
-    @Column(name = "user")
+    @Column(name = "user_role")
     private String user;
 
     @ManyToOne(fetch = FetchType.LAZY)

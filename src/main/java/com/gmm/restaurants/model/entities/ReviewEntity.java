@@ -47,7 +47,7 @@ public class ReviewEntity {
     @Column(name = "description")
     private String description;
 
-    @Column(name = "user")
+    @Column(name = "user_role")
     private String user;
 
     @ManyToOne(fetch = FetchType.LAZY)

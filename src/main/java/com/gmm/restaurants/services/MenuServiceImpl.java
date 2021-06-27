@@ -7,6 +7,7 @@ import com.gmm.restaurants.model.api.SummaryMenuModel;
 import com.gmm.restaurants.model.entities.DishEntity;
 import com.gmm.restaurants.model.entities.MenuEntity;
 import com.gmm.restaurants.model.entities.RestaurantEntity;
+import com.gmm.restaurants.repositories.MenuRepository;
 import com.gmm.restaurants.repositories.RestaurantRepository;
 import java.util.ArrayList;
 import java.util.List;
@@ -21,9 +22,11 @@ import org.springframework.stereotype.Service;
 public class MenuServiceImpl implements MenuService{
 
     private final RestaurantRepository restaurantRepository;
+    private final MenuRepository menuRepository;
 
-    public MenuServiceImpl (RestaurantRepository restaurantRepository) {
+    public MenuServiceImpl (RestaurantRepository restaurantRepository, MenuRepository menuRepository) {
         this.restaurantRepository = restaurantRepository;
+        this.menuRepository = menuRepository;
     }
 
     @Override
@@ -43,15 +46,16 @@ public class MenuServiceImpl implements MenuService{
     @Override
     public MenuModel getMenuDishes(String restaurantId, String menuId) {
         try {
-            RestaurantEntity entity = restaurantRepository.getOne(restaurantId);
-            if(entity!=null && entity.getMenus()!=null ) {
-                return entity.getMenus().stream().filter(m -> m.getId().equals(menuId)).findFirst().map(this::mapEntityToMenuModel).get();
-            }
-            return null;
+            restaurantRepository.getOne(restaurantId).getAddress();
         } catch (EntityNotFoundException e) {
             log.error(e.getMessage());
             throw new NotFoundException("restaurant", restaurantId);
-        }  catch (NoSuchElementException ex) {
+        }
+
+        try {
+            return mapEntityToMenuModel(menuRepository.getOne(menuId));
+        } catch (EntityNotFoundException e) {
+            log.error(e.getMessage());
             throw new NotFoundException("menu", menuId);
         }
 
