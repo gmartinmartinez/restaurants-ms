@@ -80,7 +80,7 @@ public class BookingServiceImpl implements BookingService {
             throw new NotFoundException("restaurant", restaurantId);
         }
 
-        if (bookingRepository.findById(bookingId)!=null) {
+        if (bookingRepository.findById(bookingId).isPresent()) {
             bookingRepository.deleteById(bookingId);
         } else {
             throw new NotFoundException("booking", bookingId);

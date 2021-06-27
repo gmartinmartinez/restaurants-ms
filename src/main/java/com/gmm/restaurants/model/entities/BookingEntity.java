@@ -57,6 +57,9 @@ public class BookingEntity {
     @Column(name = "comments")
     private String comments;
 
+    @Column(name = "user")
+    private String user;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @Fetch(FetchMode.JOIN)
     @JoinColumn(name = "restaurant", referencedColumnName = "id", insertable = false, updatable = false)

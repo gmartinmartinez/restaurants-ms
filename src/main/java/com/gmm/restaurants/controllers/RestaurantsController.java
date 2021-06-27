@@ -65,7 +65,7 @@ public class RestaurantsController{
     @PostMapping(produces = { "application/json" }, consumes = { "application/json" })
     public ResponseEntity<RestaurantModel> createRestaurant(@Parameter(in = ParameterIn.DEFAULT, description = "The information of the restaurant.", schema=@Schema()) @Valid @RequestBody RestaurantRequestModel body) {
         log.info("Create restaurant");
-        return new ResponseEntity<RestaurantModel>(service.create(body), HttpStatus.OK);
+        return new ResponseEntity<RestaurantModel>(service.create(body), HttpStatus.CREATED);
     }
 
 

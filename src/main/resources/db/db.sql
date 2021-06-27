@@ -32,6 +32,7 @@ CREATE TABLE apl_restaurants.booking
     EMAIL VARCHAR2(150),
     PHONE VARCHAR2(15) NOT NULL,
     COMMENTS VARCHAR2(500),
+    USER VARCHAR2(50) NOT NULL DEFAUL 'ADMIN',
     RESTAURANT INT NOT NULL,
     PRIMARY KEY(ID),
     FOREIGN KEY (RESTAURANT) REFERENCES apl_restaurants.RESTAURANT(ID)
@@ -47,6 +48,7 @@ CREATE TABLE apl_restaurants.review
     TITLE VARCHAR2(150),
     DESCRIPTION VARCHAR2(500),
     RESTAURANT INT NOT NULL,
+    USER VARCHAR2(50) NOT NULL DEFAUL 'ADMIN',
     PRIMARY KEY(ID),
     FOREIGN KEY (RESTAURANT) REFERENCES apl_restaurants.RESTAURANT(ID)
 );
@@ -90,3 +92,29 @@ CREATE TABLE apl_restaurants.DISH_IN_MENU
     FOREIGN KEY (DISH_ID) REFERENCES apl_restaurants.DISH(ID),
     FOREIGN KEY (MENU_ID) REFERENCES apl_restaurants.MENU(ID)
 );
+
+
+insert into apl_restaurants.RESTAURANT (ID, name, address)
+    values ('e51e8252-ac48-4c4e-8c03-d1803fe4b1a2', 'Restaurant Cool', 'Local Street, 44');
+
+
+insert into apl_restaurants.dish (ID, price, description, is_vegetarian)
+    values ('e51e8252-ac48-4c4e-8abc-d1803fe4b1a2', 3.0, 'Draft Beer', yes);
+insert into apl_restaurants.dish (ID, price, description, is_vegetarian)
+    values ('e51e8252-ac48-4c4e-8abc-d1803fe4b1a3', 2.0, 'Zero Beer', yes);
+insert into apl_restaurants.dish (ID, price, description, is_vegetarian)
+    values ('e51e8252-ac48-4c4e-8abc-d1803fe4b1a4', 2.5, 'Coke', yes);
+
+insert into apl_restaurants.menu (ID, description)
+    values ('e51e8252-ac48-4c4e-8a32-d1803fe4bsa2', 'Beverages');
+
+insert into apl_restaurants.MENU_IN_RESTAURANT (RESTAURANT_ID, MENU_ID)
+    values ('e51e8252-ac48-4c4e-8c03-d1803fe4b1a2', 'e51e8252-ac48-4c4e-8a32-d1803fe4bsa2');
+
+
+insert into apl_restaurants.DISH_IN_MENU (DISH_ID, MENU_ID)
+    values ('e51e8252-ac48-4c4e-8abc-d1803fe4b1a2', 'e51e8252-ac48-4c4e-8a32-d1803fe4bsa2');
+insert into apl_restaurants.DISH_IN_MENU (DISH_ID, MENU_ID)
+    values ('e51e8252-ac48-4c4e-8abc-d1803fe4b1a3', 'e51e8252-ac48-4c4e-8a32-d1803fe4bsa2');
+insert into apl_restaurants.DISH_IN_MENU (DISH_ID, MENU_ID)
+    values ('e51e8252-ac48-4c4e-8abc-d1803fe4b1a4', 'e51e8252-ac48-4c4e-8a32-d1803fe4bsa2');

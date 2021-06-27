@@ -66,7 +66,7 @@ public class ReviewsController {
     @PostMapping(value = "/{restaurantId}/reviews", produces = { "application/json" }, consumes = { "application/json" })
     public ResponseEntity<ReviewModel> createRestaurantReview(@Parameter(in = ParameterIn.PATH, description = "The restaurant identifier.", required=true, schema=@Schema()) @PathVariable("restaurantId") UUID restaurantId,@Parameter(in = ParameterIn.DEFAULT, description = "The information of the restaurant.", schema=@Schema()) @Valid @RequestBody ReviewRequestModel body) {
         log.info("Create restaurant review");
-        return new ResponseEntity<ReviewModel>(service.create(restaurantId.toString(), body), HttpStatus.OK);
+        return new ResponseEntity<ReviewModel>(service.create(restaurantId.toString(), body), HttpStatus.CREATED);
     }
 
     @Operation(summary = "Get restaurant review", description = "Get restaurant review by Id", tags={ "REVIEWS" })

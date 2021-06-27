@@ -105,7 +105,7 @@ public class BookingsController {
     @PostMapping(value = "/{restaurantId}/bookings", produces = { "application/json" }, consumes = { "application/json" })
     public ResponseEntity<BookingModel> createRestaurantBooking(@Parameter(in = ParameterIn.PATH, description = "The restaurant identifier.", required=true, schema=@Schema()) @PathVariable("restaurantId") UUID restaurantId,@Parameter(in = ParameterIn.DEFAULT, description = "The information of the booking.", schema=@Schema()) @Valid @RequestBody BookingRequestModel body) {
         log.info("Create restaurant booking");
-        return new ResponseEntity<BookingModel>(service.create(restaurantId.toString(), body), HttpStatus.OK);
+        return new ResponseEntity<BookingModel>(service.create(restaurantId.toString(), body), HttpStatus.CREATED);
     }
 
 }

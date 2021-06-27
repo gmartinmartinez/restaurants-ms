@@ -47,6 +47,9 @@ public class ReviewEntity {
     @Column(name = "description")
     private String description;
 
+    @Column(name = "user")
+    private String user;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @Fetch(FetchMode.JOIN)
     @JoinColumn(name = "restaurant", referencedColumnName = "id", insertable = false, updatable = false)

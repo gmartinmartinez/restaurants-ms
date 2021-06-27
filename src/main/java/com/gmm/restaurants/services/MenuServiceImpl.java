@@ -7,7 +7,6 @@ import com.gmm.restaurants.model.api.SummaryMenuModel;
 import com.gmm.restaurants.model.entities.DishEntity;
 import com.gmm.restaurants.model.entities.MenuEntity;
 import com.gmm.restaurants.model.entities.RestaurantEntity;
-import com.gmm.restaurants.repositories.MenuRepository;
 import com.gmm.restaurants.repositories.RestaurantRepository;
 import java.util.ArrayList;
 import java.util.List;
@@ -22,10 +21,8 @@ import org.springframework.stereotype.Service;
 public class MenuServiceImpl implements MenuService{
 
     private final RestaurantRepository restaurantRepository;
-    private final MenuRepository menuRepository;
 
-    public MenuServiceImpl (RestaurantRepository restaurantRepository, MenuRepository menuRepository) {
-        this.menuRepository = menuRepository;
+    public MenuServiceImpl (RestaurantRepository restaurantRepository) {
         this.restaurantRepository = restaurantRepository;
     }
 
