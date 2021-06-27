@@ -6,8 +6,8 @@ import java.util.List;
 
 public interface MenuService {
 
-    List<SummaryMenuModel> getMenuList(Integer restaurantId);
+    List<SummaryMenuModel> getMenuList(String restaurantId);
 
-    MenuModel getMenuDishes(Integer restaurantId, Integer menuId);
+    MenuModel getMenuDishes(String restaurantId, String menuId);
 
 }

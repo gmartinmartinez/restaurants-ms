@@ -14,11 +14,13 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import java.util.List;
+import java.util.UUID;
 import javax.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -30,6 +32,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @Slf4j
 @Validated
+@CrossOrigin(origins = "*")
 @RequestMapping(value = SwaggerUiConfiguration.BASE_PATH + "/restaurants")
 public class RestaurantsController{
 
@@ -75,10 +78,10 @@ public class RestaurantsController{
         @ApiResponse(responseCode = "404", description = "Not Found", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorResponse.class))),
 
         @ApiResponse(responseCode = "500", description = "Internal Server Error", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorResponse.class))) })
-    @DeleteMapping(value = "/{restaurantId}", produces = { "application/json" })
-    public ResponseEntity<Void> deleteRestaurant(@Parameter(in = ParameterIn.PATH, description = "The restaurant identifier.", required=true, schema=@Schema()) @PathVariable("restaurantId") Integer restaurantId) {
+    @DeleteMapping(value = "/{restaurantId}", consumes = { "application/json" })
+    public ResponseEntity<Void> deleteRestaurant(@Parameter(in = ParameterIn.PATH, description = "The restaurant identifier.", required=true, schema=@Schema()) @PathVariable("restaurantId") UUID restaurantId) {
         log.info("Delete restaurant");
-        service.delete(restaurantId);
+        service.delete(restaurantId.toString());
         return new ResponseEntity<>( HttpStatus.OK);
     }
 
@@ -92,8 +95,8 @@ public class RestaurantsController{
 
         @ApiResponse(responseCode = "500", description = "Internal Server Error", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorResponse.class))) })
     @GetMapping(value = "/{restaurantId}", produces = { "application/json" })
-    public ResponseEntity<RestaurantModel> getRestaurantById(@Parameter(in = ParameterIn.PATH, description = "The restaurant identifier.", required=true, schema=@Schema()) @PathVariable("restaurantId") Integer restaurantId) {
-        RestaurantModel restaurant = service.get(restaurantId);
+    public ResponseEntity<RestaurantModel> getRestaurantById(@Parameter(in = ParameterIn.PATH, description = "The restaurant identifier.", required=true, schema=@Schema()) @PathVariable("restaurantId") UUID restaurantId) {
+        RestaurantModel restaurant = service.get(restaurantId.toString());
         if(restaurant!=null)
             return new ResponseEntity<RestaurantModel>(restaurant, HttpStatus.OK);
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);

@@ -7,6 +7,7 @@ import com.gmm.restaurants.model.entities.RestaurantEntity;
 import com.gmm.restaurants.repositories.RestaurantRepository;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 import javax.persistence.EntityNotFoundException;
 import lombok.extern.slf4j.Slf4j;
@@ -22,7 +23,7 @@ public class RestaurantServiceImpl implements RestaurantService {
         this.repository = repository;
     }
     @Override
-    public RestaurantModel get(Integer restaurantId) {
+    public RestaurantModel get(String restaurantId) {
         try {
             return mapEntityToModel(repository.getOne(restaurantId));
         } catch (EntityNotFoundException e) {
@@ -45,7 +46,7 @@ public class RestaurantServiceImpl implements RestaurantService {
     }
 
     @Override
-    public void delete(Integer id) {
+    public void delete(String id) {
         try {
             repository.getOne(id);
             repository.deleteById(id);
@@ -78,6 +79,7 @@ public class RestaurantServiceImpl implements RestaurantService {
 
     private RestaurantEntity mapRequestToEntity(RestaurantRequestModel request){
             return RestaurantEntity.builder()
+                .id(UUID.randomUUID().toString())
                 .address(request.getAddress())
                 .description(request.getDescription())
                 .averageAmount(request.getAverageAmountPerPerson())

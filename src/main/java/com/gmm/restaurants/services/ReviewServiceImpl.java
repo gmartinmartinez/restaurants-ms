@@ -10,6 +10,7 @@ import com.gmm.restaurants.repositories.ReviewRepository;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 import javax.persistence.EntityNotFoundException;
 import lombok.extern.slf4j.Slf4j;
@@ -28,7 +29,7 @@ public class ReviewServiceImpl implements ReviewService{
     }
 
     @Override
-    public ReviewModel get(Integer restaurantId, Integer reviewId) {
+    public ReviewModel get(String restaurantId, String reviewId) {
         try {
             restaurantRepository.getOne(restaurantId).getAddress();
         } catch (EntityNotFoundException e) {
@@ -46,7 +47,7 @@ public class ReviewServiceImpl implements ReviewService{
     }
 
     @Override
-    public List<ReviewModel> getList(Integer restaurantId) {
+    public List<ReviewModel> getList(String restaurantId) {
         try {
             RestaurantEntity entity = restaurantRepository.getOne(restaurantId);
             if(entity!=null && entity.getReviews()!=null ) {
@@ -60,7 +61,7 @@ public class ReviewServiceImpl implements ReviewService{
     }
 
     @Override
-    public ReviewModel create(Integer restaurantId, ReviewRequestModel request) {
+    public ReviewModel create(String restaurantId, ReviewRequestModel request) {
         try {
             restaurantRepository.getOne(restaurantId).getAddress();
         } catch (EntityNotFoundException e) {
@@ -71,7 +72,7 @@ public class ReviewServiceImpl implements ReviewService{
     }
 
     @Override
-    public ReviewModel update(Integer restaurantId, Integer reviewId, ReviewRequestModel request) {
+    public ReviewModel update(String restaurantId, String reviewId, ReviewRequestModel request) {
         try {
             restaurantRepository.getOne(restaurantId).getAddress();
         } catch (EntityNotFoundException e) {
@@ -103,8 +104,9 @@ public class ReviewServiceImpl implements ReviewService{
         return null;
     }
 
-    private ReviewEntity mapRequestToEntity(ReviewRequestModel request, Integer id){
+    private ReviewEntity mapRequestToEntity(ReviewRequestModel request, String id){
         return ReviewEntity.builder()
+            .id(UUID.randomUUID().toString())
             .creationDate(LocalDateTime.now())
             .description(request.getDescription())
             .restaurant(id)

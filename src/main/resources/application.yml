@@ -14,18 +14,18 @@ springfox:
 
 spring:
   datasource:
-    #platform: h2
-    #driver-class-name: org.h2.Driver
-    #url: jdbc:h2:mem:testdb;Mode=PostgreSQL;INIT=RUNSCRIPT FROM 'src/main/resources/db/db.sql'
-    #username: user
-    #password: 1234
-    url: jdbc:sqlserver://api-restaurants.database.windows.net:1433;databaseName=apidatabase
-    driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
-    username: apiadmin@api-restaurants
-    password: apipass#01
+    platform: h2
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2:mem:testdb;Mode=PostgreSQL;INIT=RUNSCRIPT FROM 'src/main/resources/db/db.sql'
+    username: user
+    password: 1234
+    #url: jdbc:sqlserver://api-restaurants.database.windows.net:1433;databaseName=apidatabase
+    #driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+    #username: apiadmin@api-restaurants
+    #password: apipass#01
   jpa:
-    #hibernate:
-      #ddl-auto: create
+    hibernate:
+      ddl-auto: create
     show-sql: true
     properties:
       hibernate:

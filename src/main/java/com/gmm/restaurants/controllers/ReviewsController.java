@@ -14,11 +14,13 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import java.util.List;
+import java.util.UUID;
 import javax.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -30,6 +32,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @Slf4j
 @Validated
+@CrossOrigin(origins = "*")
 @RequestMapping(value = SwaggerUiConfiguration.BASE_PATH + "/restaurants")
 public class ReviewsController {
 
@@ -48,9 +51,9 @@ public class ReviewsController {
 
         @ApiResponse(responseCode = "500", description = "Internal Server Error", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorResponse.class))) })
     @GetMapping(value = "/{restaurantId}/reviews", produces = { "application/json" })
-    public ResponseEntity<List<ReviewModel>> getRestaurantReviews(@Parameter(in = ParameterIn.PATH, description = "The restaurant identifier.", required=true, schema=@Schema()) @PathVariable("restaurantId") Integer restaurantId) {
+    public ResponseEntity<List<ReviewModel>> getRestaurantReviews(@Parameter(in = ParameterIn.PATH, description = "The restaurant identifier.", required=true, schema=@Schema()) @PathVariable("restaurantId") UUID restaurantId) {
         log.info("Get restaurant reviews list");
-        return new ResponseEntity<List<ReviewModel>>(service.getList(restaurantId), HttpStatus.OK);
+        return new ResponseEntity<List<ReviewModel>>(service.getList(restaurantId.toString()), HttpStatus.OK);
     }
 
     @Operation(summary = "Create review", description = "Create a restaurant review", tags={ "REVIEWS" })
@@ -61,9 +64,9 @@ public class ReviewsController {
 
         @ApiResponse(responseCode = "500", description = "Internal Server Error", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorResponse.class))) })
     @PostMapping(value = "/{restaurantId}/reviews", produces = { "application/json" }, consumes = { "application/json" })
-    public ResponseEntity<ReviewModel> createRestaurantReview(@Parameter(in = ParameterIn.PATH, description = "The restaurant identifier.", required=true, schema=@Schema()) @PathVariable("restaurantId") Integer restaurantId,@Parameter(in = ParameterIn.DEFAULT, description = "The information of the restaurant.", schema=@Schema()) @Valid @RequestBody ReviewRequestModel body) {
+    public ResponseEntity<ReviewModel> createRestaurantReview(@Parameter(in = ParameterIn.PATH, description = "The restaurant identifier.", required=true, schema=@Schema()) @PathVariable("restaurantId") UUID restaurantId,@Parameter(in = ParameterIn.DEFAULT, description = "The information of the restaurant.", schema=@Schema()) @Valid @RequestBody ReviewRequestModel body) {
         log.info("Create restaurant review");
-        return new ResponseEntity<ReviewModel>(service.create(restaurantId, body), HttpStatus.OK);
+        return new ResponseEntity<ReviewModel>(service.create(restaurantId.toString(), body), HttpStatus.OK);
     }
 
     @Operation(summary = "Get restaurant review", description = "Get restaurant review by Id", tags={ "REVIEWS" })
@@ -76,8 +79,8 @@ public class ReviewsController {
 
         @ApiResponse(responseCode = "500", description = "Internal Server Error", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorResponse.class))) })
     @GetMapping(value = "/{restaurantId}/reviews/{reviewId}", produces = { "application/json" })
-    public ResponseEntity<ReviewModel> getRestaurantReviewById(@Parameter(in = ParameterIn.PATH, description = "The restaurant identifier.", required=true, schema=@Schema()) @PathVariable("restaurantId") Integer restaurantId,@Parameter(in = ParameterIn.PATH, description = "The review identifier.", required=true, schema=@Schema()) @PathVariable("reviewId") Integer reviewId) {
-        ReviewModel reviewModel = service.get(restaurantId, reviewId);
+    public ResponseEntity<ReviewModel> getRestaurantReviewById(@Parameter(in = ParameterIn.PATH, description = "The restaurant identifier.", required=true, schema=@Schema()) @PathVariable("restaurantId") UUID restaurantId,@Parameter(in = ParameterIn.PATH, description = "The review identifier.", required=true, schema=@Schema()) @PathVariable("reviewId") UUID reviewId) {
+        ReviewModel reviewModel = service.get(restaurantId.toString(), reviewId.toString());
         if(reviewModel!=null)
             return new ResponseEntity<ReviewModel>(reviewModel, HttpStatus.OK);
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -93,9 +96,9 @@ public class ReviewsController {
 
         @ApiResponse(responseCode = "500", description = "Internal Server Error", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorResponse.class))) })
     @PutMapping(value = "/{restaurantId}/reviews/{reviewId}", produces = { "application/json" }, consumes = { "application/json" })
-    public ResponseEntity<ReviewModel> updateRestaurantReview(@Parameter(in = ParameterIn.PATH, description = "The restaurant identifier.", required=true, schema=@Schema()) @PathVariable("restaurantId") Integer restaurantId,@Parameter(in = ParameterIn.PATH, description = "The review identifier.", required=true, schema=@Schema()) @PathVariable("reviewId") Integer reviewId,@Parameter(in = ParameterIn.DEFAULT, description = "The information of the review.", schema=@Schema()) @Valid @RequestBody ReviewRequestModel body) {
+    public ResponseEntity<ReviewModel> updateRestaurantReview(@Parameter(in = ParameterIn.PATH, description = "The restaurant identifier.", required=true, schema=@Schema()) @PathVariable("restaurantId") UUID restaurantId,@Parameter(in = ParameterIn.PATH, description = "The review identifier.", required=true, schema=@Schema()) @PathVariable("reviewId") UUID reviewId,@Parameter(in = ParameterIn.DEFAULT, description = "The information of the review.", schema=@Schema()) @Valid @RequestBody ReviewRequestModel body) {
         log.info("Update restaurant review");
-        return new ResponseEntity<ReviewModel>(service.update(restaurantId, reviewId, body), HttpStatus.OK);
+        return new ResponseEntity<ReviewModel>(service.update(restaurantId.toString(), reviewId.toString(), body), HttpStatus.OK);
     }
 
 

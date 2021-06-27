@@ -5,6 +5,6 @@ import javax.transaction.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 @Transactional
-public interface RestaurantRepository extends JpaRepository<RestaurantEntity, Integer> {
+public interface RestaurantRepository extends JpaRepository<RestaurantEntity, String> {
 
 }

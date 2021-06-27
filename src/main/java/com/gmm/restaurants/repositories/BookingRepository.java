@@ -5,8 +5,7 @@ import javax.transaction.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 @Transactional
-public interface BookingRepository extends JpaRepository<BookingEntity, Integer> {
+public interface BookingRepository extends JpaRepository<BookingEntity, String> {
 
-    BookingEntity findByIdAndRestaurant(Integer id, Integer restaurant);
 
 }

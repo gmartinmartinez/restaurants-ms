@@ -27,20 +27,14 @@ import org.hibernate.annotations.Parameter;
 @AllArgsConstructor
 @Builder
 @Table(name = "BOOKING", schema = "apl_restaurants")
-@GenericGenerator(name = "BookingSequence", strategy = "org.hibernate.id.enhanced.SequenceStyleGenerator",
-parameters = {
-    @Parameter(name = "sequence_name", value = "apl_restaurants.booking_id_seq"),
-    @Parameter(name = "increment_size", value = "1")
-})
 public class BookingEntity {
 
     @Id
-    @GeneratedValue(strategy= GenerationType.IDENTITY)
     @Column(name = "id")
-    private Integer id;
+    private String id;
 
     @Column(name = "restaurant")
-    private Integer restaurant;
+    private String restaurant;
 
     @Column(name = "creation_date")
     private LocalDateTime creationDate;

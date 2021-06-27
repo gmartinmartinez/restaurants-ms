@@ -10,6 +10,7 @@ import com.gmm.restaurants.repositories.RestaurantRepository;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 import javax.persistence.EntityNotFoundException;
 import lombok.extern.slf4j.Slf4j;
@@ -28,7 +29,7 @@ public class BookingServiceImpl implements BookingService {
     }
 
     @Override
-    public BookingModel get(Integer restaurantId, Integer bookingId) {
+    public BookingModel get(String restaurantId, String bookingId) {
 
         try {
             restaurantRepository.getOne(restaurantId).getAddress();
@@ -46,7 +47,7 @@ public class BookingServiceImpl implements BookingService {
     }
 
     @Override
-    public List<BookingModel> getList(Integer restaurantId) {
+    public List<BookingModel> getList(String restaurantId) {
         try {
             RestaurantEntity entity = restaurantRepository.getOne(restaurantId);
             if(entity!=null && entity.getBookings()!=null ) {
@@ -60,7 +61,7 @@ public class BookingServiceImpl implements BookingService {
     }
 
     @Override
-    public BookingModel create(Integer restaurantId, BookingRequestModel request) {
+    public BookingModel create(String restaurantId, BookingRequestModel request) {
         try {
             restaurantRepository.getOne(restaurantId).getAddress();
         } catch (EntityNotFoundException e) {
@@ -71,7 +72,7 @@ public class BookingServiceImpl implements BookingService {
     }
 
     @Override
-    public void delete(Integer restaurantId, Integer bookingId) {
+    public void delete(String restaurantId, String bookingId) {
         try {
             restaurantRepository.getOne(restaurantId).getAddress();
         } catch (EntityNotFoundException e) {
@@ -102,8 +103,9 @@ public class BookingServiceImpl implements BookingService {
         return null;
     }
 
-    private BookingEntity mapRequestToEntity(BookingRequestModel request, Integer id){
+    private BookingEntity mapRequestToEntity(BookingRequestModel request, String id){
         return BookingEntity.builder()
+            .id(UUID.randomUUID().toString())
             .bookingDate(request.getBookingDate())
             .comments(request.getComments())
             .restaurant(id)

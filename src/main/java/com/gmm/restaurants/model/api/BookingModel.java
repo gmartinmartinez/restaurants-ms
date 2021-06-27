@@ -15,7 +15,7 @@ import org.springframework.validation.annotation.Validated;
 public class BookingModel {
 
   @JsonProperty("id")
-  private Integer id;
+  private String id;
 
   @JsonProperty("creationDate")
   private LocalDateTime creationDate;

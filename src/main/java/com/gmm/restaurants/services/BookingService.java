@@ -8,12 +8,12 @@ import java.util.List;
 
 public interface BookingService {
 
-    BookingModel get(Integer restaurantId, Integer bookingId);
+    BookingModel get(String restaurantId, String bookingId);
 
-    List<BookingModel> getList(Integer restaurantId);
+    List<BookingModel> getList(String restaurantId);
 
-    BookingModel create(Integer restaurantId, BookingRequestModel request);
+    BookingModel create(String restaurantId, BookingRequestModel request);
 
-    void delete(Integer restaurantId, Integer bookingId);
+    void delete(String restaurantId, String bookingId);
 
 }

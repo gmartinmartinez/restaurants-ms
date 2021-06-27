@@ -8,7 +8,7 @@ info:
 servers:
   - url: http://localhost:8086/restaurants-api/v1
     description: local server
-  - url: http://production.server@some.domain.com/restaurants-api/v1
+  - url: https://restaurant-api-mngr.azure-api.net/restaurants-api/v1
     description: production server
 
 paths:
@@ -67,7 +67,8 @@ paths:
           description: The restaurant identifier.
           required: true
           schema:
-            type: integer
+            type: string
+            format: uuid
             description: The restaurant identifier.
       responses:
         '200':
@@ -94,7 +95,8 @@ paths:
           description: The restaurant identifier.
           required: true
           schema:
-            type: integer
+            type: string
+            format: uuid
             description: The restaurant identifier.
       responses:
         '204':
@@ -117,7 +119,8 @@ paths:
           description: The restaurant identifier.
           required: true
           schema:
-            type: integer
+            type: string
+            format: uuid
             description: The restaurant identifier.
       responses:
         '200':
@@ -129,7 +132,9 @@ paths:
                 items:
                   $ref: '#/components/schemas/ReviewModel'
         '400':
-          $ref: '#/components/responses/bad_request_response'       
+          $ref: '#/components/responses/bad_request_response'  
+        '404':
+          $ref: '#/components/responses/not_found_response'          
         default:
           $ref: '#/components/responses/server_error_response'
     post:
@@ -143,7 +148,8 @@ paths:
           description: The restaurant identifier.
           required: true
           schema:
-            type: integer
+            type: string
+            format: uuid
             description: The restaurant identifier.
       requestBody:
         description: The information of the restaurant.
@@ -160,7 +166,9 @@ paths:
               schema:
                 $ref: '#/components/schemas/ReviewModel'
         '400':
-          $ref: '#/components/responses/bad_request_response'       
+          $ref: '#/components/responses/bad_request_response'  
+        '404':
+          $ref: '#/components/responses/not_found_response'          
         default:
           $ref: '#/components/responses/server_error_response'
   /restaurants/{restaurantId}/reviews/{reviewId}:
@@ -175,14 +183,16 @@ paths:
           description: The restaurant identifier.
           required: true
           schema:
-            type: integer
+            type: string
+            format: uuid
             description: The restaurant identifier.
         - name: reviewId
           in: path
           description: The review identifier.
           required: true
           schema:
-            type: integer
+            type: string
+            format: uuid
             description: The review identifier.
       responses:
         '200':
@@ -208,14 +218,16 @@ paths:
           description: The restaurant identifier.
           required: true
           schema:
-            type: integer
+            type: string
+            format: uuid
             description: The restaurant identifier.
         - name: reviewId
           in: path
           description: The review identifier.
           required: true
           schema:
-            type: integer
+            type: string
+            format: uuid
             description: The review identifier.
       requestBody:
         description: The information of the review.
@@ -249,7 +261,8 @@ paths:
           description: The restaurant identifier.
           required: true
           schema:
-            type: integer
+            type: string
+            format: uuid
             description: The restaurant identifier.
       responses:
         '200':
@@ -261,7 +274,9 @@ paths:
                 items:
                   $ref: '#/components/schemas/BookingModel'
         '400':
-          $ref: '#/components/responses/bad_request_response'       
+          $ref: '#/components/responses/bad_request_response'   
+        '404':
+          $ref: '#/components/responses/not_found_response'         
         default:
           $ref: '#/components/responses/server_error_response'
     post:
@@ -275,7 +290,8 @@ paths:
           description: The restaurant identifier.
           required: true
           schema:
-            type: integer
+            type: string
+            format: uuid
             description: The restaurant identifier.
       requestBody:
         description: The information of the booking.
@@ -292,7 +308,9 @@ paths:
               schema:
                 $ref: '#/components/schemas/BookingModel'
         '400':
-          $ref: '#/components/responses/bad_request_response'       
+          $ref: '#/components/responses/bad_request_response'  
+        '404':
+          $ref: '#/components/responses/not_found_response'          
         default:
           $ref: '#/components/responses/server_error_response'
   /restaurants/{restaurantId}/bookings/{bookingId}:
@@ -307,14 +325,16 @@ paths:
           description: The restaurant identifier.
           required: true
           schema:
-            type: integer
+            type: string
+            format: uuid
             description: The restaurant identifier.
         - name: bookingId
           in: path
           description: The booking identifier.
           required: true
           schema:
-            type: integer
+            type: string
+            format: uuid
             description: The booking identifier.
       responses:
         '200':
@@ -341,14 +361,16 @@ paths:
           description: The restaurant identifier.
           required: true
           schema:
-            type: integer
+            type: string
+            format: uuid
             description: The restaurant identifier.
         - name: bookingId
           in: path
           description: The booking identifier.
           required: true
           schema:
-            type: integer
+            type: string
+            format: uuid
             description: The booking identifier.
       responses:
         '204':
@@ -371,7 +393,8 @@ paths:
           description: The restaurant identifier.
           required: true
           schema:
-            type: integer
+            type: string
+            format: uuid
             description: The restaurant identifier.
       responses:
         '200':
@@ -383,7 +406,9 @@ paths:
                 items:
                   $ref: '#/components/schemas/SummaryMenuModel'
         '400':
-          $ref: '#/components/responses/bad_request_response'       
+          $ref: '#/components/responses/bad_request_response' 
+        '404':
+          $ref: '#/components/responses/not_found_response'           
         default:
           $ref: '#/components/responses/server_error_response'
   /restaurants/{restaurantId}/menus/{menuId}:
@@ -398,14 +423,16 @@ paths:
           description: The restaurant identifier.
           required: true
           schema:
-            type: integer
+            type: string
+            format: uuid
             description: The restaurant identifier.
         - name: menuId
           in: path
           description: The menu identifier.
           required: true
           schema:
-            type: integer
+            type: string
+            format: uuid
             description: The menu identifier.
       responses:
         '200':
@@ -415,7 +442,9 @@ paths:
               schema:
                   $ref: '#/components/schemas/MenuModel'
         '400':
-          $ref: '#/components/responses/bad_request_response'       
+          $ref: '#/components/responses/bad_request_response' 
+        '404':
+          $ref: '#/components/responses/not_found_response'           
         default:
           $ref: '#/components/responses/server_error_response'
 components:
@@ -506,7 +535,8 @@ components:
       type: object
       properties:
         id:
-          type: integer
+          type: string
+          format: uuid
           description: The restaurant identifier.
         name:
           type: string
@@ -583,7 +613,8 @@ components:
       type: object
       properties:
         id:
-          type: integer
+          type: string
+          format: uuid
           description: The identifier of the review.
         creationDate:
           type: string
@@ -653,7 +684,8 @@ components:
       type: object
       properties:
         id:
-          type: integer
+          type: string
+          format: uuid
           description: The identifier of the booking.
         creationDate:
           type: string
@@ -683,7 +715,8 @@ components:
       type: object
       properties:
         id:
-          type: integer
+          type: string
+          format: uuid
           description: The identifier of the booking.
         description:
           type: string
@@ -695,7 +728,8 @@ components:
       type: object
       properties:
         id:
-          type: integer
+          type: string
+          format: uuid
           description: The identifier of the Menu.
         description:
           type: string
@@ -713,7 +747,8 @@ components:
       type: object
       properties:
         id:
-          type: integer
+          type: string
+          format: uuid
           description: The identifier of the dish.
           example: 3
         description:

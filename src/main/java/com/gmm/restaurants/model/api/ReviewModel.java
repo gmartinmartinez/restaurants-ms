@@ -14,7 +14,7 @@ import org.springframework.validation.annotation.Validated;
 @Builder
 public class ReviewModel   {
   @JsonProperty("id")
-  private Integer id;
+  private String id;
 
   @JsonProperty("creationDate")
   private LocalDateTime creationDate;

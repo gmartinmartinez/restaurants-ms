@@ -15,7 +15,7 @@ import javax.validation.Valid;
 @Builder
 public class MenuModel   {
   @JsonProperty("id")
-  private Integer id;
+  private String id;
 
   @JsonProperty("description")
   private String description;

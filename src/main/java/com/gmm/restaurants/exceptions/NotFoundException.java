@@ -5,9 +5,9 @@ import lombok.Data;
 @Data
 public class NotFoundException extends RuntimeException {
     private String property;
-    private Integer id;
+    private String id;
 
-    public NotFoundException(String property, Integer id) {
+    public NotFoundException(String property, String id) {
         this.property = property;
         this.id = id;
     }

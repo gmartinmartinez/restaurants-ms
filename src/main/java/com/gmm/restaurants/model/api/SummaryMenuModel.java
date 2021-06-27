@@ -13,12 +13,12 @@ import org.springframework.validation.annotation.Validated;
 @Builder
 public class SummaryMenuModel   {
   @JsonProperty("id")
-  private Integer id = null;
+  private String id;
 
   @JsonProperty("description")
-  private String description = null;
+  private String description;
 
   @JsonProperty("availability")
-  private String availability = null;
+  private String availability;
 
 }

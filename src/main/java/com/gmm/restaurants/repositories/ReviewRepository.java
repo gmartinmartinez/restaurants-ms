@@ -5,8 +5,7 @@ import javax.transaction.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 @Transactional
-public interface ReviewRepository extends JpaRepository<ReviewEntity, Integer> {
+public interface ReviewRepository extends JpaRepository<ReviewEntity, String> {
 
-    ReviewEntity findByIdAndRestaurant(Integer id, Integer restaurant);
 
 }

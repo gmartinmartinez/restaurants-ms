@@ -6,12 +6,12 @@ import java.util.List;
 
 public interface ReviewService {
 
-    ReviewModel get(Integer restaurantId, Integer reviewId);
+    ReviewModel get(String restaurantId, String reviewId);
 
-    List<ReviewModel> getList(Integer restaurantId);
+    List<ReviewModel> getList(String restaurantId);
 
-    ReviewModel create(Integer restaurantId, ReviewRequestModel request);
+    ReviewModel create(String restaurantId, ReviewRequestModel request);
 
-    ReviewModel update(Integer restaurantId, Integer reviewId, ReviewRequestModel request);
+    ReviewModel update(String restaurantId, String reviewId, ReviewRequestModel request);
 
 }

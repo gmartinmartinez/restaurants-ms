@@ -6,12 +6,12 @@ import java.util.List;
 
 public interface RestaurantService {
 
-    RestaurantModel get(Integer restaurantId);
+    RestaurantModel get(String restaurantId);
 
     List<RestaurantModel> getList();
 
     RestaurantModel create(RestaurantRequestModel restaurant);
 
-    void delete(Integer id);
+    void delete(String id);
 
 }

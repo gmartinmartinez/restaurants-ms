@@ -30,7 +30,7 @@ public class MenuServiceImpl implements MenuService{
     }
 
     @Override
-    public List<SummaryMenuModel> getMenuList(Integer restaurantId) {
+    public List<SummaryMenuModel> getMenuList(String restaurantId) {
         try {
             RestaurantEntity entity = restaurantRepository.getOne(restaurantId);
             if(entity!=null && entity.getMenus()!=null ) {
@@ -44,11 +44,11 @@ public class MenuServiceImpl implements MenuService{
     }
 
     @Override
-    public MenuModel getMenuDishes(Integer restaurantId, Integer menuId) {
+    public MenuModel getMenuDishes(String restaurantId, String menuId) {
         try {
             RestaurantEntity entity = restaurantRepository.getOne(restaurantId);
             if(entity!=null && entity.getMenus()!=null ) {
-                return entity.getMenus().stream().filter(m -> m.getId()==menuId).findFirst().map(this::mapEntityToMenuModel).get();
+                return entity.getMenus().stream().filter(m -> m.getId().equals(menuId)).findFirst().map(this::mapEntityToMenuModel).get();
             }
             return null;
         } catch (EntityNotFoundException e) {

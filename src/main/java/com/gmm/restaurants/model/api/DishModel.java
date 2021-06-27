@@ -13,7 +13,7 @@ import org.springframework.validation.annotation.Validated;
 @Builder
 public class DishModel   {
   @JsonProperty("id")
-  private Integer id;
+  private String id;
 
   @JsonProperty("description")
   private String description;
