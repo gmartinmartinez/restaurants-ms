@@ -27,7 +27,7 @@ public class RestaurantServiceImpl implements RestaurantService {
         try {
             return mapEntityToModel(repository.getOne(restaurantId));
         } catch (EntityNotFoundException e) {
-            log.error(e.getMessage());
+            log.error("EntityNotFoundException", e);
             throw new NotFoundException("restaurant", restaurantId);
         }
     }
@@ -48,16 +48,15 @@ public class RestaurantServiceImpl implements RestaurantService {
     @Override
     public void delete(String id) {
         try {
-            repository.getOne(id);
-            repository.deleteById(id);
+            repository.getOne(id).getAddress();
         } catch (EntityNotFoundException e) {
-            log.error(e.getMessage());
+            log.error("EntityNotFoundException", e);
             throw new NotFoundException("restaurant", id);
         }
+        repository.deleteById(id);
     }
 
     private RestaurantModel mapEntityToModel(RestaurantEntity entity){
-        if(entity!=null){
             return RestaurantModel.builder()
                 .id(entity.getId())
                 .address(entity.getAddress())
@@ -73,8 +72,6 @@ public class RestaurantServiceImpl implements RestaurantService {
                 .website(entity.getWebsite())
                 .zipcode(entity.getZipcode())
                 .build();
-        }
-        return null;
     }
 
     private RestaurantEntity mapRequestToEntity(RestaurantRequestModel request){

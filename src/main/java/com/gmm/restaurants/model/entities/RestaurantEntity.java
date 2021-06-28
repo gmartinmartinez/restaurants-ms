@@ -68,6 +68,12 @@ public class RestaurantEntity {
     @Column(name = "average_amount")
     private Double averageAmount;
 
+    //@Column(name = "user_role")
+    //private String role;
+
+    //@Column(name = "creation_user")
+    //private String user;
+
     @OneToMany(mappedBy = "restaurantEntity", fetch = FetchType.LAZY, targetEntity = ReviewEntity.class)
     @Fetch(FetchMode.SUBSELECT)
     @OrderBy("id ASC")

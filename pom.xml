@@ -21,9 +21,9 @@
 		<jacoco.argline.ut>
 			-javaagent:${settings.localRepository}org${file.separator}jacoco${file.separator}org.jacoco.agent${file.separator}${jacoco.version}${file.separator}org.jacoco.agent-${jacoco.version}-runtime.jar=destfile=${project.build.directory}${file.separator}coverage-reports${file.separator}jacoco-ut.exec
 		</jacoco.argline.ut>
-		<jacoco.branch.coveredRatio>0.85</jacoco.branch.coveredRatio>
+		<jacoco.branch.coveredRatio>0.80</jacoco.branch.coveredRatio>
 		<jacoco.haltOnFailure>false</jacoco.haltOnFailure>
-		<jacoco.line.coveredRatio>0.85</jacoco.line.coveredRatio>
+		<jacoco.line.coveredRatio>0.80</jacoco.line.coveredRatio>
 		<skipIntegrationTests>false</skipIntegrationTests>
 		<jacoco.version>0.8.2</jacoco.version>
 		<junit.jupiter.version>5.3.2</junit.jupiter.version>
@@ -137,15 +137,10 @@
 				<artifactId>jacoco-maven-plugin</artifactId>
 				<configuration>
 					<excludes>
-						<exclude>**/mapper/**</exclude>
-						<exclude>**/**Config.class</exclude>
 						<exclude>**/model/**</exclude>
-						<exclude>**/exception/**</exclude>
-						<exclude>**/config/**</exclude>
+						<exclude>**/exceptions/**</exclude>
+						<exclude>**/configuration/**</exclude>
 						<exclude>**/Application.class</exclude>
-						<exclude>**/dao/**</exclude>
-						<exclude>**/entity/**</exclude>
-						<exclude>**/**Constants.class</exclude>
 					</excludes>
 					<haltOnFailure>${jacoco.haltOnFailure}</haltOnFailure>
 					<rules>

@@ -34,14 +34,14 @@ public class BookingServiceImpl implements BookingService {
         try {
             restaurantRepository.getOne(restaurantId).getAddress();
         } catch (EntityNotFoundException e) {
-            log.error(e.getMessage());
+            log.error("EntityNotFoundException", e);
             throw new NotFoundException("restaurant", restaurantId);
         }
 
         try {
             return mapEntityToModel(bookingRepository.getOne(bookingId));
         } catch (EntityNotFoundException e) {
-            log.error(e.getMessage());
+            log.error("EntityNotFoundException", e);
             throw new NotFoundException("booking", bookingId);
         }
     }
@@ -50,12 +50,12 @@ public class BookingServiceImpl implements BookingService {
     public List<BookingModel> getList(String restaurantId) {
         try {
             RestaurantEntity entity = restaurantRepository.getOne(restaurantId);
-            if(entity!=null && entity.getBookings()!=null ) {
+            if(entity.getBookings()!=null ) {
                 return entity.getBookings().stream().map(this::mapEntityToModel).collect(Collectors.toList());
             }
             return new ArrayList<>();
         } catch (EntityNotFoundException e) {
-            log.error(e.getMessage());
+            log.error("EntityNotFoundException", e);
             throw new NotFoundException("restaurant", restaurantId);
         }
     }
@@ -65,7 +65,7 @@ public class BookingServiceImpl implements BookingService {
         try {
             restaurantRepository.getOne(restaurantId).getAddress();
         } catch (EntityNotFoundException e) {
-            log.error(e.getMessage());
+            log.error("EntityNotFoundException", e);
             throw new NotFoundException("restaurant", restaurantId);
         }
         return mapEntityToModel(bookingRepository.saveAndFlush(mapRequestToEntity(request, restaurantId)));
@@ -76,7 +76,7 @@ public class BookingServiceImpl implements BookingService {
         try {
             restaurantRepository.getOne(restaurantId).getAddress();
         } catch (EntityNotFoundException e) {
-            log.error(e.getMessage());
+            log.error("EntityNotFoundException", e);
             throw new NotFoundException("restaurant", restaurantId);
         }
 
@@ -88,7 +88,6 @@ public class BookingServiceImpl implements BookingService {
     }
 
     private BookingModel mapEntityToModel(BookingEntity entity){
-        if(entity!=null){
             return BookingModel.builder()
                 .id(entity.getId())
                 .bookingDate(entity.getBookingDate())
@@ -99,8 +98,6 @@ public class BookingServiceImpl implements BookingService {
                 .numberOfPeople(entity.getPeopleNumber())
                 .phone(entity.getPhone())
                 .build();
-        }
-        return null;
     }
 
     private BookingEntity mapRequestToEntity(BookingRequestModel request, String id){

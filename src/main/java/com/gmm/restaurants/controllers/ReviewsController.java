@@ -80,10 +80,7 @@ public class ReviewsController {
         @ApiResponse(responseCode = "500", description = "Internal Server Error", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorResponse.class))) })
     @GetMapping(value = "/{restaurantId}/reviews/{reviewId}", produces = { "application/json" })
     public ResponseEntity<ReviewModel> getRestaurantReviewById(@Parameter(in = ParameterIn.PATH, description = "The restaurant identifier.", required=true, schema=@Schema()) @PathVariable("restaurantId") UUID restaurantId,@Parameter(in = ParameterIn.PATH, description = "The review identifier.", required=true, schema=@Schema()) @PathVariable("reviewId") UUID reviewId) {
-        ReviewModel reviewModel = service.get(restaurantId.toString(), reviewId.toString());
-        if(reviewModel!=null)
-            return new ResponseEntity<ReviewModel>(reviewModel, HttpStatus.OK);
-        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+         return new ResponseEntity<ReviewModel>(service.get(restaurantId.toString(), reviewId.toString()), HttpStatus.OK);
     }
 
     @Operation(summary = "Update restaurant review", description = "Update restaurant review by Id", tags={ "REVIEWS" })

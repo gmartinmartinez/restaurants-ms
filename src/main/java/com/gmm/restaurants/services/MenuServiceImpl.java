@@ -33,12 +33,12 @@ public class MenuServiceImpl implements MenuService{
     public List<SummaryMenuModel> getMenuList(String restaurantId) {
         try {
             RestaurantEntity entity = restaurantRepository.getOne(restaurantId);
-            if(entity!=null && entity.getMenus()!=null ) {
+            if(entity.getMenus()!=null ) {
                 return entity.getMenus().stream().map(this::mapEntityToSummaryMenuModel).collect(Collectors.toList());
             }
             return new ArrayList<>();
         } catch (EntityNotFoundException e) {
-            log.error(e.getMessage());
+            log.error("EntityNotFoundException", e);
             throw new NotFoundException("restaurant", restaurantId);
         }
     }
@@ -48,40 +48,34 @@ public class MenuServiceImpl implements MenuService{
         try {
             restaurantRepository.getOne(restaurantId).getAddress();
         } catch (EntityNotFoundException e) {
-            log.error(e.getMessage());
+            log.error("EntityNotFoundException", e);
             throw new NotFoundException("restaurant", restaurantId);
         }
 
         try {
             return mapEntityToMenuModel(menuRepository.getOne(menuId));
         } catch (EntityNotFoundException e) {
-            log.error(e.getMessage());
+            log.error("EntityNotFoundException", e);
             throw new NotFoundException("menu", menuId);
         }
 
     }
 
     private SummaryMenuModel mapEntityToSummaryMenuModel(MenuEntity entity){
-        if(entity!=null){
             return SummaryMenuModel.builder()
                 .id(entity.getId())
                 .availability(entity.getAvailability())
                 .description(entity.getDescription())
                 .build();
-        }
-        return null;
     }
 
     private MenuModel mapEntityToMenuModel(MenuEntity entity){
-        if(entity!=null){
             return MenuModel.builder()
                 .id(entity.getId())
                 .availability(entity.getAvailability())
                 .description(entity.getDescription())
                 .dishes(mapDishesList(entity.getDishes()))
                 .build();
-        }
-        return null;
     }
 
     private List<DishModel> mapDishesList(List<DishEntity> dishes) {
@@ -93,7 +87,7 @@ public class MenuServiceImpl implements MenuService{
                                         .build()
                 ).collect(Collectors.toList());
         }
-        return null;
+        return new ArrayList<>();
 
     }
 }

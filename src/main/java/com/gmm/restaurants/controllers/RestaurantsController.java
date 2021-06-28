@@ -78,11 +78,11 @@ public class RestaurantsController{
         @ApiResponse(responseCode = "404", description = "Not Found", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorResponse.class))),
 
         @ApiResponse(responseCode = "500", description = "Internal Server Error", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorResponse.class))) })
-    @DeleteMapping(value = "/{restaurantId}", consumes = { "application/json" })
+    @DeleteMapping(value = "/{restaurantId}")
     public ResponseEntity<Void> deleteRestaurant(@Parameter(in = ParameterIn.PATH, description = "The restaurant identifier.", required=true, schema=@Schema()) @PathVariable("restaurantId") UUID restaurantId) {
         log.info("Delete restaurant");
         service.delete(restaurantId.toString());
-        return new ResponseEntity<>( HttpStatus.OK);
+        return new ResponseEntity<>( HttpStatus.NO_CONTENT);
     }
 
     @Operation(summary = "Get restaurant", description = "Get restaurant by Id", tags={ "RESTAURANTS" })
@@ -96,10 +96,7 @@ public class RestaurantsController{
         @ApiResponse(responseCode = "500", description = "Internal Server Error", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorResponse.class))) })
     @GetMapping(value = "/{restaurantId}", produces = { "application/json" })
     public ResponseEntity<RestaurantModel> getRestaurantById(@Parameter(in = ParameterIn.PATH, description = "The restaurant identifier.", required=true, schema=@Schema()) @PathVariable("restaurantId") UUID restaurantId) {
-        RestaurantModel restaurant = service.get(restaurantId.toString());
-        if(restaurant!=null)
-            return new ResponseEntity<RestaurantModel>(restaurant, HttpStatus.OK);
-        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        return new ResponseEntity<RestaurantModel>(service.get(restaurantId.toString()), HttpStatus.OK);
     }
 
 

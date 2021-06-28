@@ -52,11 +52,11 @@ public class BookingsController {
         @ApiResponse(responseCode = "404", description = "Not Found", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorResponse.class))),
 
         @ApiResponse(responseCode = "500", description = "Internal Server Error", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorResponse.class))) })
-    @DeleteMapping(value = "/{restaurantId}/bookings/{bookingId}", consumes = { "application/json" })
+    @DeleteMapping(value = "/{restaurantId}/bookings/{bookingId}")
     public ResponseEntity<Void> cancelBooking(@Parameter(in = ParameterIn.PATH, description = "The restaurant identifier.", required=true, schema=@Schema()) @PathVariable("restaurantId") UUID restaurantId,@Parameter(in = ParameterIn.PATH, description = "The booking identifier.", required=true, schema=@Schema()) @PathVariable("bookingId") UUID bookingId) {
         log.info("Delete restaurant booking by id");
         service.delete(restaurantId.toString(), bookingId.toString());
-        return new ResponseEntity<>( HttpStatus.OK);
+        return new ResponseEntity<>( HttpStatus.NO_CONTENT);
     }
 
     @Operation(summary = "Get booking by id", description = "Get a booking by identifier for the restaurant", tags={ "BOOKINGS" })
@@ -71,10 +71,7 @@ public class BookingsController {
     @GetMapping(value = "/{restaurantId}/bookings/{bookingId}", produces = { "application/json" })
     public ResponseEntity<BookingModel> getBookingById(@Parameter(in = ParameterIn.PATH, description = "The restaurant identifier.", required=true, schema=@Schema()) @PathVariable("restaurantId") UUID restaurantId,@Parameter(in = ParameterIn.PATH, description = "The booking identifier.", required=true, schema=@Schema()) @PathVariable("bookingId") UUID bookingId) {
         log.info("Get restaurant booking by id");
-        BookingModel booking = service.get(restaurantId.toString(), bookingId.toString());
-        if(booking!=null)
-            return new ResponseEntity<BookingModel>(booking, HttpStatus.OK);
-        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        return new ResponseEntity<BookingModel>(service.get(restaurantId.toString(), bookingId.toString()), HttpStatus.OK);
     }
 
 

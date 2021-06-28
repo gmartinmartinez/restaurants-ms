@@ -1,0 +1,3117 @@
+{
+	"info": {
+		"_postman_id": "fbe38b50-b240-4226-b544-d66d58bf4e5a",
+		"name": "Restaurants_API_DEV",
+		"description": "Contact Support:\n Name: Gema Martin\n Email: gema.m2@gmail.com",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "01.GET.Restaurants",
+			"item": [
+				{
+					"name": "01.200",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/restaurants",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"restaurants"
+							]
+						},
+						"description": "Retrieve the list of existing restaurants\n"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "02.POST.Restaurants",
+			"item": [
+				{
+					"name": "01.201",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"});\r",
+									"\r",
+									"var jsonData = JSON.parse(responseBody);\r",
+									"postman.setEnvironmentVariable(\"restaurant\", jsonData.id);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Red Lobster\",\n    \"address\": \"Calle Alcala, 54\",\n    \"city\": \"Madrid\",\n    \"phone\": \"627339911\",\n    \"zipcode\": \"28925\",\n    \"province\": \"Madrid\",\n    \"country\": \"Spain\",\n    \"email\": \"user@gmail.com\",\n    \"website\": \"http://riapWgHPtmwJiT.kiR4,f8QsmHIcGKiw,wq-,2tY6mE\",\n    \"description\": \"The restaurant covers the whole ground floor and is organizaed in two dining rooms\",\n    \"foodType\": \"Mediterranean food\",\n    \"averageAmountPerPerson\": 35\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/restaurants",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"restaurants"
+							]
+						},
+						"description": "Create a new restaurant"
+					},
+					"response": []
+				},
+				{
+					"name": "02.400",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"address\": \"Calle Alcala, 54\",\n    \"city\": \"Madrid\",\n    \"phone\": \"627339911\",\n    \"zipcode\": \"28925\",\n    \"province\": \"Madrid\",\n    \"country\": \"Spain\",\n    \"email\": \"user@gmail.com\",\n    \"website\": \"http://riapWgHPtmwJiT.kiR4,f8QsmHIcGKiw,wq-,2tY6mE\",\n    \"description\": \"The restaurant covers the whole ground floor and is organizaed in two dining rooms\",\n    \"foodType\": \"Mediterranean food\",\n    \"averageAmountPerPerson\": 35\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/restaurants",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"restaurants"
+							]
+						},
+						"description": "Create a new restaurant"
+					},
+					"response": []
+				},
+				{
+					"name": "03.400",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Red Lobster\",\n    \"city\": \"Madrid\",\n    \"phone\": \"627339911\",\n    \"zipcode\": \"28925\",\n    \"province\": \"Madrid\",\n    \"country\": \"Spain\",\n    \"email\": \"user@gmail.com\",\n    \"website\": \"http://riapWgHPtmwJiT.kiR4,f8QsmHIcGKiw,wq-,2tY6mE\",\n    \"description\": \"The restaurant covers the whole ground floor and is organizaed in two dining rooms\",\n    \"foodType\": \"Mediterranean food\",\n    \"averageAmountPerPerson\": 35\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/restaurants",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"restaurants"
+							]
+						},
+						"description": "Create a new restaurant"
+					},
+					"response": []
+				},
+				{
+					"name": "04.400",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Red Lobster\",\n    \"address\": \"Calle Alcala, 54\",\n    \"phone\": \"627339911\",\n    \"zipcode\": \"28925\",\n    \"province\": \"Madrid\",\n    \"country\": \"Spain\",\n    \"email\": \"user@gmail.com\",\n    \"website\": \"http://riapWgHPtmwJiT.kiR4,f8QsmHIcGKiw,wq-,2tY6mE\",\n    \"description\": \"The restaurant covers the whole ground floor and is organizaed in two dining rooms\",\n    \"foodType\": \"Mediterranean food\",\n    \"averageAmountPerPerson\": 35\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/restaurants",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"restaurants"
+							]
+						},
+						"description": "Create a new restaurant"
+					},
+					"response": []
+				},
+				{
+					"name": "05.400",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Red Lobster\",\n    \"address\": \"Calle Alcala, 54\",\n    \"city\": \"Madrid\",\n    \"zipcode\": \"28925\",\n    \"province\": \"Madrid\",\n    \"country\": \"Spain\",\n    \"email\": \"user@gmail.com\",\n    \"website\": \"http://riapWgHPtmwJiT.kiR4,f8QsmHIcGKiw,wq-,2tY6mE\",\n    \"description\": \"The restaurant covers the whole ground floor and is organizaed in two dining rooms\",\n    \"foodType\": \"Mediterranean food\",\n    \"averageAmountPerPerson\": 35\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/restaurants",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"restaurants"
+							]
+						},
+						"description": "Create a new restaurant"
+					},
+					"response": []
+				},
+				{
+					"name": "06.400",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Red Lobster\",\n    \"address\": \"Calle Alcala, 54\",\n    \"city\": \"Madrid\",\n    \"phone\": \"627339911\",\n    \"zipcode\": \"28925\",\n    \"province\": \"Madrid\",\n    \"country\": \"Spain\",\n    \"email\": \"usergmail.com\",\n    \"website\": \"http://riapWgHPtmwJiT.kiR4,f8QsmHIcGKiw,wq-,2tY6mE\",\n    \"description\": \"The restaurant covers the whole ground floor and is organizaed in two dining rooms\",\n    \"foodType\": \"Mediterranean food\",\n    \"averageAmountPerPerson\": 35\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/restaurants",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"restaurants"
+							]
+						},
+						"description": "Create a new restaurant"
+					},
+					"response": []
+				},
+				{
+					"name": "07.400",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Red Lobster\",\n    \"address\": \"Calle Alcala, 54\",\n    \"city\": \"Madrid\",\n    \"phone\": \"62733991155555555555555555555555\",\n    \"zipcode\": \"28925\",\n    \"province\": \"Madrid\",\n    \"country\": \"Spain\",\n    \"email\": \"user@gmail.com\",\n    \"website\": \"http://riapWgHPtmwJiT.kiR4,f8QsmHIcGKiw,wq-,2tY6mE\",\n    \"description\": \"The restaurant covers the whole ground floor and is organizaed in two dining rooms\",\n    \"foodType\": \"Mediterranean food\",\n    \"averageAmountPerPerson\": 35\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/restaurants",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"restaurants"
+							]
+						},
+						"description": "Create a new restaurant"
+					},
+					"response": []
+				},
+				{
+					"name": "08.400",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Red Lobster\",\n    \"address\": \"Calle Alcala, 54\",\n    \"city\": \"Madrid\",\n    \"phone\": \"627339911\",\n    \"zipcode\": \"28925AAA\",\n    \"province\": \"Madrid\",\n    \"country\": \"Spain\",\n    \"email\": \"user@gmail.com\",\n    \"website\": \"http://riapWgHPtmwJiT.kiR4,f8QsmHIcGKiw,wq-,2tY6mE\",\n    \"description\": \"The restaurant covers the whole ground floor and is organizaed in two dining rooms\",\n    \"foodType\": \"Mediterranean food\",\n    \"averageAmountPerPerson\": 35\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/restaurants",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"restaurants"
+							]
+						},
+						"description": "Create a new restaurant"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "03.GET.RestaurantById",
+			"item": [
+				{
+					"name": "01.200",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/restaurants/:restaurantId",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"restaurants",
+								":restaurantId"
+							],
+							"variable": [
+								{
+									"key": "restaurantId",
+									"value": "e51e8252-ac48-4c4e-8c03-d1803fe4b1a2",
+									"description": "(Required) The restaurant identifier."
+								}
+							]
+						},
+						"description": "Get restaurant by Id"
+					},
+					"response": []
+				},
+				{
+					"name": "02.404",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(404);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/restaurants/:restaurantId",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"restaurants",
+								":restaurantId"
+							],
+							"variable": [
+								{
+									"key": "restaurantId",
+									"value": "e51e8252-ac48-4c4e-8c03-d1803fe4b1a9",
+									"description": "(Required) The restaurant identifier."
+								}
+							]
+						},
+						"description": "Get restaurant by Id"
+					},
+					"response": []
+				},
+				{
+					"name": "03.400",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/restaurants/:restaurantId",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"restaurants",
+								":restaurantId"
+							],
+							"variable": [
+								{
+									"key": "restaurantId",
+									"value": "1",
+									"description": "(Required) The restaurant identifier."
+								}
+							]
+						},
+						"description": "Get restaurant by Id"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "04.DEL.RestaurantById",
+			"item": [
+				{
+					"name": "01.204",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 204\", function () {\r",
+									"    pm.response.to.have.status(204);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/restaurants/:restaurantId",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"restaurants",
+								":restaurantId"
+							],
+							"variable": [
+								{
+									"key": "restaurantId",
+									"value": "{{restaurant}}",
+									"description": "(Required) The restaurant identifier."
+								}
+							]
+						},
+						"description": "Delete a restaurant given its identifier\n"
+					},
+					"response": []
+				},
+				{
+					"name": "02.404",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(404);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/restaurants/:restaurantId",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"restaurants",
+								":restaurantId"
+							],
+							"variable": [
+								{
+									"key": "restaurantId",
+									"value": "1b3c0264-6cea-6a29-53e0-107837409417",
+									"description": "(Required) The restaurant identifier."
+								}
+							]
+						},
+						"description": "Delete a restaurant given its identifier\n"
+					},
+					"response": []
+				},
+				{
+					"name": "03.400",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/restaurants/:restaurantId",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"restaurants",
+								":restaurantId"
+							],
+							"variable": [
+								{
+									"key": "restaurantId",
+									"value": "1",
+									"description": "(Required) The restaurant identifier."
+								}
+							]
+						},
+						"description": "Delete a restaurant given its identifier\n"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "05.GET.Reviews",
+			"item": [
+				{
+					"name": "01.200",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/restaurants/:restaurantId/reviews",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"restaurants",
+								":restaurantId",
+								"reviews"
+							],
+							"variable": [
+								{
+									"key": "restaurantId",
+									"value": "e51e8252-ac48-4c4e-8c03-d1803fe4b1a2",
+									"description": "(Required) The restaurant identifier."
+								}
+							]
+						},
+						"description": "Get a list of reviews for a restaurant"
+					},
+					"response": []
+				},
+				{
+					"name": "02.404",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(404);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/restaurants/:restaurantId/reviews",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"restaurants",
+								":restaurantId",
+								"reviews"
+							],
+							"variable": [
+								{
+									"key": "restaurantId",
+									"value": "e51e8252-ac48-4c4e-8c03-d1803fe4b1a9",
+									"description": "(Required) The restaurant identifier."
+								}
+							]
+						},
+						"description": "Get a list of reviews for a restaurant"
+					},
+					"response": []
+				},
+				{
+					"name": "03.400",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/restaurants/:restaurantId/reviews",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"restaurants",
+								":restaurantId",
+								"reviews"
+							],
+							"variable": [
+								{
+									"key": "restaurantId",
+									"value": "1",
+									"description": "(Required) The restaurant identifier."
+								}
+							]
+						},
+						"description": "Get a list of reviews for a restaurant"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "06.POST.Reviews",
+			"item": [
+				{
+					"name": "01.201",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"});\r",
+									"\r",
+									"var jsonData = JSON.parse(responseBody);\r",
+									"postman.setEnvironmentVariable(\"review\", jsonData.id);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"senderNick\": \"user5\",\n    \"stars\": 2,\n    \"title\": \"This is a review title example\",\n    \"description\": \"This is a review text example\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/restaurants/:restaurantId/reviews",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"restaurants",
+								":restaurantId",
+								"reviews"
+							],
+							"variable": [
+								{
+									"key": "restaurantId",
+									"value": "e51e8252-ac48-4c4e-8c03-d1803fe4b1a2",
+									"description": "(Required) The restaurant identifier."
+								}
+							]
+						},
+						"description": "Create a restaurant review"
+					},
+					"response": []
+				},
+				{
+					"name": "02.404",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 404\", function () {\r",
+									"    pm.response.to.have.status(404);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"senderNick\": \"user0089\",\n    \"stars\": 2,\n    \"title\": \"This is a review title example\",\n    \"description\": \"This is a review text example\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/restaurants/:restaurantId/reviews",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"restaurants",
+								":restaurantId",
+								"reviews"
+							],
+							"variable": [
+								{
+									"key": "restaurantId",
+									"value": "e51e8252-ac48-4c4e-8c03-d1803fe4b1a9",
+									"description": "(Required) The restaurant identifier."
+								}
+							]
+						},
+						"description": "Create a restaurant review"
+					},
+					"response": []
+				},
+				{
+					"name": "03.400",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"senderNick\": \"user0089\",\n    \"stars\": 2,\n    \"title\": \"This is a review title example\",\n    \"description\": \"This is a review text example\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/restaurants/:restaurantId/reviews",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"restaurants",
+								":restaurantId",
+								"reviews"
+							],
+							"variable": [
+								{
+									"key": "restaurantId",
+									"value": "1",
+									"description": "(Required) The restaurant identifier."
+								}
+							]
+						},
+						"description": "Create a restaurant review"
+					},
+					"response": []
+				},
+				{
+					"name": "04.400",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"stars\": 2,\n    \"title\": \"This is a review title example\",\n    \"description\": \"This is a review text example\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/restaurants/:restaurantId/reviews",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"restaurants",
+								":restaurantId",
+								"reviews"
+							],
+							"variable": [
+								{
+									"key": "restaurantId",
+									"value": "e51e8252-ac48-4c4e-8c03-d1803fe4b1a2",
+									"description": "(Required) The restaurant identifier."
+								}
+							]
+						},
+						"description": "Create a restaurant review"
+					},
+					"response": []
+				},
+				{
+					"name": "05.400",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 404\", function () {\r",
+									"    pm.response.to.have.status(404);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"senderNick\": \"user0089\",\n    \"title\": \"This is a review title example\",\n    \"description\": \"This is a review text example\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/restaurants/:restaurantId/reviews",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"restaurants",
+								":restaurantId",
+								"reviews"
+							],
+							"variable": [
+								{
+									"key": "restaurantId",
+									"value": "e51e8252-ac48-4c4e-8c03-d1803fe4b1a9",
+									"description": "(Required) The restaurant identifier."
+								}
+							]
+						},
+						"description": "Create a restaurant review"
+					},
+					"response": []
+				},
+				{
+					"name": "06.400",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 404\", function () {\r",
+									"    pm.response.to.have.status(404);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"senderNick\": \"user0089\",\n    \"stars\": \"***\",\n    \"title\": \"This is a review title example\",\n    \"description\": \"This is a review text example\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/restaurants/:restaurantId/reviews",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"restaurants",
+								":restaurantId",
+								"reviews"
+							],
+							"variable": [
+								{
+									"key": "restaurantId",
+									"value": "e51e8252-ac48-4c4e-8c03-d1803fe4b1a9",
+									"description": "(Required) The restaurant identifier."
+								}
+							]
+						},
+						"description": "Create a restaurant review"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "07.GET.ReviewById",
+			"item": [
+				{
+					"name": "01.200",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/restaurants/:restaurantId/reviews/:reviewId",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"restaurants",
+								":restaurantId",
+								"reviews",
+								":reviewId"
+							],
+							"variable": [
+								{
+									"key": "restaurantId",
+									"value": "e51e8252-ac48-4c4e-8c03-d1803fe4b1a2",
+									"description": "(Required) The restaurant identifier."
+								},
+								{
+									"key": "reviewId",
+									"value": "e4cdf362-3bc8-4fe8-a472-b75ec09d30e4",
+									"description": "(Required) The review identifier."
+								}
+							]
+						},
+						"description": "Get restaurant review by Id"
+					},
+					"response": []
+				},
+				{
+					"name": "02.404",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 404\", function () {\r",
+									"    pm.response.to.have.status(404);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/restaurants/:restaurantId/reviews/:reviewId",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"restaurants",
+								":restaurantId",
+								"reviews",
+								":reviewId"
+							],
+							"variable": [
+								{
+									"key": "restaurantId",
+									"value": "e51e8252-ac48-4c4e-8c03-d1803fe4b1a9",
+									"description": "(Required) The restaurant identifier."
+								},
+								{
+									"key": "reviewId",
+									"value": "e4cdf362-3bc8-4fe8-a472-b75ec09d30e4",
+									"description": "(Required) The review identifier."
+								}
+							]
+						},
+						"description": "Get restaurant review by Id"
+					},
+					"response": []
+				},
+				{
+					"name": "03.404",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 404\", function () {\r",
+									"    pm.response.to.have.status(404);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/restaurants/:restaurantId/reviews/:reviewId",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"restaurants",
+								":restaurantId",
+								"reviews",
+								":reviewId"
+							],
+							"variable": [
+								{
+									"key": "restaurantId",
+									"value": "e51e8252-ac48-4c4e-8c03-d1803fe4b1a2",
+									"description": "(Required) The restaurant identifier."
+								},
+								{
+									"key": "reviewId",
+									"value": "e4cdf362-3bc8-4fe8-a472-b75ec09d30e9",
+									"description": "(Required) The review identifier."
+								}
+							]
+						},
+						"description": "Get restaurant review by Id"
+					},
+					"response": []
+				},
+				{
+					"name": "04.400",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/restaurants/:restaurantId/reviews/:reviewId",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"restaurants",
+								":restaurantId",
+								"reviews",
+								":reviewId"
+							],
+							"variable": [
+								{
+									"key": "restaurantId",
+									"value": "1",
+									"description": "(Required) The restaurant identifier."
+								},
+								{
+									"key": "reviewId",
+									"value": "e4cdf362-3bc8-4fe8-a472-b75ec09d30e4",
+									"description": "(Required) The review identifier."
+								}
+							]
+						},
+						"description": "Get restaurant review by Id"
+					},
+					"response": []
+				},
+				{
+					"name": "05.400",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/restaurants/:restaurantId/reviews/:reviewId",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"restaurants",
+								":restaurantId",
+								"reviews",
+								":reviewId"
+							],
+							"variable": [
+								{
+									"key": "restaurantId",
+									"value": "e51e8252-ac48-4c4e-8c03-d1803fe4b1a2",
+									"description": "(Required) The restaurant identifier."
+								},
+								{
+									"key": "reviewId",
+									"value": "1",
+									"description": "(Required) The review identifier."
+								}
+							]
+						},
+						"description": "Get restaurant review by Id"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "08.PUT.ReviewById",
+			"item": [
+				{
+					"name": "01.200",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"senderNick\": \"user0089\",\n    \"stars\": 5,\n    \"title\": \"This is a review title example\",\n    \"description\": \"This is a review text example\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/restaurants/:restaurantId/reviews/:reviewId",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"restaurants",
+								":restaurantId",
+								"reviews",
+								":reviewId"
+							],
+							"variable": [
+								{
+									"key": "restaurantId",
+									"value": "e51e8252-ac48-4c4e-8c03-d1803fe4b1a2",
+									"description": "(Required) The restaurant identifier."
+								},
+								{
+									"key": "reviewId",
+									"value": "{{review}}",
+									"description": "(Required) The review identifier."
+								}
+							]
+						},
+						"description": "Update restaurant review by Id"
+					},
+					"response": []
+				},
+				{
+					"name": "02.404",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 404\", function () {\r",
+									"    pm.response.to.have.status(404);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"senderNick\": \"user0089\",\n    \"stars\": 5,\n    \"title\": \"This is a review title example\",\n    \"description\": \"This is a review text example\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/restaurants/:restaurantId/reviews/:reviewId",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"restaurants",
+								":restaurantId",
+								"reviews",
+								":reviewId"
+							],
+							"variable": [
+								{
+									"key": "restaurantId",
+									"value": "e51e8252-ac48-4c4e-8c03-d1803fe4b1a9",
+									"description": "(Required) The restaurant identifier."
+								},
+								{
+									"key": "reviewId",
+									"value": "e4cdf362-3bc8-4fe8-a472-b75ec09d30e4",
+									"description": "(Required) The review identifier."
+								}
+							]
+						},
+						"description": "Update restaurant review by Id"
+					},
+					"response": []
+				},
+				{
+					"name": "03.404",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 404\", function () {\r",
+									"    pm.response.to.have.status(404);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"senderNick\": \"user0089\",\n    \"stars\": 5,\n    \"title\": \"This is a review title example\",\n    \"description\": \"This is a review text example\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/restaurants/:restaurantId/reviews/:reviewId",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"restaurants",
+								":restaurantId",
+								"reviews",
+								":reviewId"
+							],
+							"variable": [
+								{
+									"key": "restaurantId",
+									"value": "e51e8252-ac48-4c4e-8c03-d1803fe4b1a2",
+									"description": "(Required) The restaurant identifier."
+								},
+								{
+									"key": "reviewId",
+									"value": "e4cdf362-3bc8-4fe8-a472-b75ec09d30e9",
+									"description": "(Required) The review identifier."
+								}
+							]
+						},
+						"description": "Update restaurant review by Id"
+					},
+					"response": []
+				},
+				{
+					"name": "04.400",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"senderNick\": \"user0089\",\n    \"stars\": 5,\n    \"title\": \"This is a review title example\",\n    \"description\": \"This is a review text example\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/restaurants/:restaurantId/reviews/:reviewId",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"restaurants",
+								":restaurantId",
+								"reviews",
+								":reviewId"
+							],
+							"variable": [
+								{
+									"key": "restaurantId",
+									"value": "1",
+									"description": "(Required) The restaurant identifier."
+								},
+								{
+									"key": "reviewId",
+									"value": "e4cdf362-3bc8-4fe8-a472-b75ec09d30e4",
+									"description": "(Required) The review identifier."
+								}
+							]
+						},
+						"description": "Update restaurant review by Id"
+					},
+					"response": []
+				},
+				{
+					"name": "05.400",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"senderNick\": \"user0089\",\n    \"stars\": 5,\n    \"title\": \"This is a review title example\",\n    \"description\": \"This is a review text example\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/restaurants/:restaurantId/reviews/:reviewId",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"restaurants",
+								":restaurantId",
+								"reviews",
+								":reviewId"
+							],
+							"variable": [
+								{
+									"key": "restaurantId",
+									"value": "e51e8252-ac48-4c4e-8c03-d1803fe4b1a2",
+									"description": "(Required) The restaurant identifier."
+								},
+								{
+									"key": "reviewId",
+									"value": "1",
+									"description": "(Required) The review identifier."
+								}
+							]
+						},
+						"description": "Update restaurant review by Id"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "09.GET.Menus",
+			"item": [
+				{
+					"name": "01.200",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/restaurants/:restaurantId/menus",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"restaurants",
+								":restaurantId",
+								"menus"
+							],
+							"variable": [
+								{
+									"key": "restaurantId",
+									"value": "e51e8252-ac48-4c4e-8c03-d1803fe4b1a2",
+									"description": "(Required) The restaurant identifier."
+								}
+							]
+						},
+						"description": "Get menus list for the restaurant"
+					},
+					"response": []
+				},
+				{
+					"name": "02.404",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 404\", function () {\r",
+									"    pm.response.to.have.status(404);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/restaurants/:restaurantId/menus",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"restaurants",
+								":restaurantId",
+								"menus"
+							],
+							"variable": [
+								{
+									"key": "restaurantId",
+									"value": "e51e8252-ac48-4c4e-8c03-d1803fe4b1a9",
+									"description": "(Required) The restaurant identifier."
+								}
+							]
+						},
+						"description": "Get menus list for the restaurant"
+					},
+					"response": []
+				},
+				{
+					"name": "03.400",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/restaurants/:restaurantId/menus",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"restaurants",
+								":restaurantId",
+								"menus"
+							],
+							"variable": [
+								{
+									"key": "restaurantId",
+									"value": "1",
+									"description": "(Required) The restaurant identifier."
+								}
+							]
+						},
+						"description": "Get menus list for the restaurant"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "10.GET.MenuById",
+			"item": [
+				{
+					"name": "01.200",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/restaurants/:restaurantId/menus/:menuId",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"restaurants",
+								":restaurantId",
+								"menus",
+								":menuId"
+							],
+							"variable": [
+								{
+									"key": "restaurantId",
+									"value": "e51e8252-ac48-4c4e-8c03-d1803fe4b1a2",
+									"description": "(Required) The restaurant identifier."
+								},
+								{
+									"key": "menuId",
+									"value": "e51e8252-ac48-4c4e-8a32-d1803fe4baa2",
+									"description": "(Required) The menu identifier."
+								}
+							]
+						},
+						"description": "Get a menu of the restaurant by id"
+					},
+					"response": []
+				},
+				{
+					"name": "02.404",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 404\", function () {\r",
+									"    pm.response.to.have.status(404);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/restaurants/:restaurantId/menus/:menuId",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"restaurants",
+								":restaurantId",
+								"menus",
+								":menuId"
+							],
+							"variable": [
+								{
+									"key": "restaurantId",
+									"value": "e51e8252-ac48-4c4e-8c03-d1803fe4b1a9",
+									"description": "(Required) The restaurant identifier."
+								},
+								{
+									"key": "menuId",
+									"value": "e51e8252-ac48-4c4e-8a32-d1803fe4baa2",
+									"description": "(Required) The menu identifier."
+								}
+							]
+						},
+						"description": "Get a menu of the restaurant by id"
+					},
+					"response": []
+				},
+				{
+					"name": "03.404",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 404\", function () {\r",
+									"    pm.response.to.have.status(404);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/restaurants/:restaurantId/menus/:menuId",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"restaurants",
+								":restaurantId",
+								"menus",
+								":menuId"
+							],
+							"variable": [
+								{
+									"key": "restaurantId",
+									"value": "e51e8252-ac48-4c4e-8c03-d1803fe4b1a2",
+									"description": "(Required) The restaurant identifier."
+								},
+								{
+									"key": "menuId",
+									"value": "e51e8252-ac48-4c4e-8a32-d1803fe4baa9",
+									"description": "(Required) The menu identifier."
+								}
+							]
+						},
+						"description": "Get a menu of the restaurant by id"
+					},
+					"response": []
+				},
+				{
+					"name": "04.400",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/restaurants/:restaurantId/menus/:menuId",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"restaurants",
+								":restaurantId",
+								"menus",
+								":menuId"
+							],
+							"variable": [
+								{
+									"key": "restaurantId",
+									"value": "1",
+									"description": "(Required) The restaurant identifier."
+								},
+								{
+									"key": "menuId",
+									"value": "e51e8252-ac48-4c4e-8a32-d1803fe4baa2",
+									"description": "(Required) The menu identifier."
+								}
+							]
+						},
+						"description": "Get a menu of the restaurant by id"
+					},
+					"response": []
+				},
+				{
+					"name": "05.400",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/restaurants/:restaurantId/menus/:menuId",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"restaurants",
+								":restaurantId",
+								"menus",
+								":menuId"
+							],
+							"variable": [
+								{
+									"key": "restaurantId",
+									"value": "e51e8252-ac48-4c4e-8c03-d1803fe4b1a2",
+									"description": "(Required) The restaurant identifier."
+								},
+								{
+									"key": "menuId",
+									"value": "e51e8252-ac48-4c4e-8a32-d1803fe4baa9",
+									"description": "(Required) The menu identifier."
+								}
+							]
+						},
+						"description": "Get a menu of the restaurant by id"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "11.GET.Bookings",
+			"item": [
+				{
+					"name": "01.200",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/restaurants/:restaurantId/bookings",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"restaurants",
+								":restaurantId",
+								"bookings"
+							],
+							"variable": [
+								{
+									"key": "restaurantId",
+									"value": "e51e8252-ac48-4c4e-8c03-d1803fe4b1a2",
+									"description": "(Required) The restaurant identifier."
+								}
+							]
+						},
+						"description": "Get booking list for the restaurant"
+					},
+					"response": []
+				},
+				{
+					"name": "02.404",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 404\", function () {\r",
+									"    pm.response.to.have.status(404);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/restaurants/:restaurantId/bookings",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"restaurants",
+								":restaurantId",
+								"bookings"
+							],
+							"variable": [
+								{
+									"key": "restaurantId",
+									"value": "e51e8252-ac48-4c4e-8c03-d1803fe4b1a9",
+									"description": "(Required) The restaurant identifier."
+								}
+							]
+						},
+						"description": "Get booking list for the restaurant"
+					},
+					"response": []
+				},
+				{
+					"name": "03.400",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/restaurants/:restaurantId/bookings",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"restaurants",
+								":restaurantId",
+								"bookings"
+							],
+							"variable": [
+								{
+									"key": "restaurantId",
+									"value": "1",
+									"description": "(Required) The restaurant identifier."
+								}
+							]
+						},
+						"description": "Get booking list for the restaurant"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "12.POST.Bookings",
+			"item": [
+				{
+					"name": "01.201",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"});\r",
+									"\r",
+									"var jsonData = JSON.parse(responseBody);\r",
+									"postman.setEnvironmentVariable(\"booking\", jsonData.id);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"bookingDate\": \"1969-06-27T23:19:20.259Z\",\n    \"numberOfPeople\": 3,\n    \"name\": \"Luis Garcia\",\n    \"phone\": \"627339911\",\n    \"email\": \"user@gmail.com\",\n    \"comments\": \"I would like to have a table near the window\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/restaurants/:restaurantId/bookings",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"restaurants",
+								":restaurantId",
+								"bookings"
+							],
+							"variable": [
+								{
+									"key": "restaurantId",
+									"value": "e51e8252-ac48-4c4e-8c03-d1803fe4b1a2",
+									"description": "(Required) The restaurant identifier."
+								}
+							]
+						},
+						"description": "Create a new booking for the restaurant"
+					},
+					"response": []
+				},
+				{
+					"name": "02.404",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 404\", function () {\r",
+									"    pm.response.to.have.status(404);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"bookingDate\": \"1969-06-27T23:19:20.259Z\",\n    \"numberOfPeople\": 3,\n    \"name\": \"Luis Garcia\",\n    \"phone\": \"627339911\",\n    \"email\": \"user@gmail.com\",\n    \"comments\": \"I would like to have a table near the window\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/restaurants/:restaurantId/bookings",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"restaurants",
+								":restaurantId",
+								"bookings"
+							],
+							"variable": [
+								{
+									"key": "restaurantId",
+									"value": "e51e8252-ac48-4c4e-8c03-d1803fe4b1a9",
+									"description": "(Required) The restaurant identifier."
+								}
+							]
+						},
+						"description": "Create a new booking for the restaurant"
+					},
+					"response": []
+				},
+				{
+					"name": "03.400",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"bookingDate\": \"1969-06-27T23:19:20.259Z\",\n    \"numberOfPeople\": 3,\n    \"name\": \"Luis Garcia\",\n    \"phone\": \"627339911\",\n    \"email\": \"user@gmail.com\",\n    \"comments\": \"I would like to have a table near the window\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/restaurants/:restaurantId/bookings",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"restaurants",
+								":restaurantId",
+								"bookings"
+							],
+							"variable": [
+								{
+									"key": "restaurantId",
+									"value": "1",
+									"description": "(Required) The restaurant identifier."
+								}
+							]
+						},
+						"description": "Create a new booking for the restaurant"
+					},
+					"response": []
+				},
+				{
+					"name": "04.400",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"numberOfPeople\": 3,\n    \"name\": \"Luis Garcia\",\n    \"phone\": \"627339911\",\n    \"email\": \"user@gmail.com\",\n    \"comments\": \"I would like to have a table near the window\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/restaurants/:restaurantId/bookings",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"restaurants",
+								":restaurantId",
+								"bookings"
+							],
+							"variable": [
+								{
+									"key": "restaurantId",
+									"value": "e51e8252-ac48-4c4e-8c03-d1803fe4b1a2",
+									"description": "(Required) The restaurant identifier."
+								}
+							]
+						},
+						"description": "Create a new booking for the restaurant"
+					},
+					"response": []
+				},
+				{
+					"name": "05.400",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"bookingDate\": \"1969-06-27T23:19:20.259Z\",\n    \"name\": \"Luis Garcia\",\n    \"phone\": \"627339911\",\n    \"email\": \"user@gmail.com\",\n    \"comments\": \"I would like to have a table near the window\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/restaurants/:restaurantId/bookings",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"restaurants",
+								":restaurantId",
+								"bookings"
+							],
+							"variable": [
+								{
+									"key": "restaurantId",
+									"value": "e51e8252-ac48-4c4e-8c03-d1803fe4b1a2",
+									"description": "(Required) The restaurant identifier."
+								}
+							]
+						},
+						"description": "Create a new booking for the restaurant"
+					},
+					"response": []
+				},
+				{
+					"name": "06.400",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"bookingDate\": \"1969-06-27T23:19:20.259Z\",\n    \"numberOfPeople\": 3,\n    \"name\": \"Luis Garcia\",\n    \"phone\": \"627339911\",\n    \"email\": \"usergmail.com\",\n    \"comments\": \"I would like to have a table near the window\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/restaurants/:restaurantId/bookings",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"restaurants",
+								":restaurantId",
+								"bookings"
+							],
+							"variable": [
+								{
+									"key": "restaurantId",
+									"value": "e51e8252-ac48-4c4e-8c03-d1803fe4b1a2",
+									"description": "(Required) The restaurant identifier."
+								}
+							]
+						},
+						"description": "Create a new booking for the restaurant"
+					},
+					"response": []
+				},
+				{
+					"name": "07.400",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"bookingDate\": \"1969-06-27T23:19:20.259Z\",\n    \"numberOfPeople\": 3,\n    \"name\": \"Luis Garcia\",\n    \"email\": \"user@gmail.com\",\n    \"comments\": \"I would like to have a table near the window\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/restaurants/:restaurantId/bookings",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"restaurants",
+								":restaurantId",
+								"bookings"
+							],
+							"variable": [
+								{
+									"key": "restaurantId",
+									"value": "e51e8252-ac48-4c4e-8c03-d1803fe4b1a2",
+									"description": "(Required) The restaurant identifier."
+								}
+							]
+						},
+						"description": "Create a new booking for the restaurant"
+					},
+					"response": []
+				},
+				{
+					"name": "08.400",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"bookingDate\": \"25/07/2021\",\n    \"numberOfPeople\": 3,\n    \"name\": \"Luis Garcia\",\n    \"phone\": \"627339911\",\n    \"email\": \"user@gmail.com\",\n    \"comments\": \"I would like to have a table near the window\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/restaurants/:restaurantId/bookings",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"restaurants",
+								":restaurantId",
+								"bookings"
+							],
+							"variable": [
+								{
+									"key": "restaurantId",
+									"value": "e51e8252-ac48-4c4e-8c03-d1803fe4b1a2",
+									"description": "(Required) The restaurant identifier."
+								}
+							]
+						},
+						"description": "Create a new booking for the restaurant"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "13.GET.BookingById",
+			"item": [
+				{
+					"name": "01.200",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/restaurants/:restaurantId/bookings/:bookingId",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"restaurants",
+								":restaurantId",
+								"bookings",
+								":bookingId"
+							],
+							"variable": [
+								{
+									"key": "restaurantId",
+									"value": "e51e8252-ac48-4c4e-8c03-d1803fe4b1a2",
+									"description": "(Required) The restaurant identifier."
+								},
+								{
+									"key": "bookingId",
+									"value": "98bdd814-3d54-4ef2-b6f4-90d8108f11c7",
+									"description": "(Required) The booking identifier."
+								}
+							]
+						},
+						"description": "Get a booking by identifier for the restaurant"
+					},
+					"response": []
+				},
+				{
+					"name": "02.404",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 404\", function () {\r",
+									"    pm.response.to.have.status(404);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/restaurants/:restaurantId/bookings/:bookingId",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"restaurants",
+								":restaurantId",
+								"bookings",
+								":bookingId"
+							],
+							"variable": [
+								{
+									"key": "restaurantId",
+									"value": "e51e8252-ac48-4c4e-8c03-d1803fe4b1a9",
+									"description": "(Required) The restaurant identifier."
+								},
+								{
+									"key": "bookingId",
+									"value": "98bdd814-3d54-4ef2-b6f4-90d8108f11c7",
+									"description": "(Required) The booking identifier."
+								}
+							]
+						},
+						"description": "Get a booking by identifier for the restaurant"
+					},
+					"response": []
+				},
+				{
+					"name": "03.404",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 404\", function () {\r",
+									"    pm.response.to.have.status(404);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/restaurants/:restaurantId/bookings/:bookingId",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"restaurants",
+								":restaurantId",
+								"bookings",
+								":bookingId"
+							],
+							"variable": [
+								{
+									"key": "restaurantId",
+									"value": "e51e8252-ac48-4c4e-8c03-d1803fe4b1a2",
+									"description": "(Required) The restaurant identifier."
+								},
+								{
+									"key": "bookingId",
+									"value": "98bdd814-3d54-4ef2-b6f4-90d8108f11c9",
+									"description": "(Required) The booking identifier."
+								}
+							]
+						},
+						"description": "Get a booking by identifier for the restaurant"
+					},
+					"response": []
+				},
+				{
+					"name": "04.400",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/restaurants/:restaurantId/bookings/:bookingId",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"restaurants",
+								":restaurantId",
+								"bookings",
+								":bookingId"
+							],
+							"variable": [
+								{
+									"key": "restaurantId",
+									"value": "1",
+									"description": "(Required) The restaurant identifier."
+								},
+								{
+									"key": "bookingId",
+									"value": "98bdd814-3d54-4ef2-b6f4-90d8108f11c9",
+									"description": "(Required) The booking identifier."
+								}
+							]
+						},
+						"description": "Get a booking by identifier for the restaurant"
+					},
+					"response": []
+				},
+				{
+					"name": "05.400",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/restaurants/:restaurantId/bookings/:bookingId",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"restaurants",
+								":restaurantId",
+								"bookings",
+								":bookingId"
+							],
+							"variable": [
+								{
+									"key": "restaurantId",
+									"value": "e51e8252-ac48-4c4e-8c03-d1803fe4b1a2",
+									"description": "(Required) The restaurant identifier."
+								},
+								{
+									"key": "bookingId",
+									"value": "1",
+									"description": "(Required) The booking identifier."
+								}
+							]
+						},
+						"description": "Get a booking by identifier for the restaurant"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "14.DEL.BookingById",
+			"item": [
+				{
+					"name": "01.204",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 204\", function () {\r",
+									"    pm.response.to.have.status(204);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/restaurants/:restaurantId/bookings/:bookingId",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"restaurants",
+								":restaurantId",
+								"bookings",
+								":bookingId"
+							],
+							"variable": [
+								{
+									"key": "restaurantId",
+									"value": "e51e8252-ac48-4c4e-8c03-d1803fe4b1a2",
+									"description": "(Required) The restaurant identifier."
+								},
+								{
+									"key": "bookingId",
+									"value": "{{booking}}",
+									"description": "(Required) The booking identifier."
+								}
+							]
+						},
+						"description": "Delete a restaurant booking given its identifier\n"
+					},
+					"response": []
+				},
+				{
+					"name": "02.404",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 404\", function () {\r",
+									"    pm.response.to.have.status(404);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/restaurants/:restaurantId/bookings/:bookingId",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"restaurants",
+								":restaurantId",
+								"bookings",
+								":bookingId"
+							],
+							"variable": [
+								{
+									"key": "restaurantId",
+									"value": "e51e8252-ac48-4c4e-8c03-d1803fe4b1a9",
+									"description": "(Required) The restaurant identifier."
+								},
+								{
+									"key": "bookingId",
+									"value": "urn:uuid:2c2dc5a0-f277-7ff6-642a-e380b8be0b7d",
+									"description": "(Required) The booking identifier."
+								}
+							]
+						},
+						"description": "Delete a restaurant booking given its identifier\n"
+					},
+					"response": []
+				},
+				{
+					"name": "03.404",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 404\", function () {\r",
+									"    pm.response.to.have.status(404);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/restaurants/:restaurantId/bookings/:bookingId",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"restaurants",
+								":restaurantId",
+								"bookings",
+								":bookingId"
+							],
+							"variable": [
+								{
+									"key": "restaurantId",
+									"value": "e51e8252-ac48-4c4e-8c03-d1803fe4b1a2",
+									"description": "(Required) The restaurant identifier."
+								},
+								{
+									"key": "bookingId",
+									"value": "e51e8252-ac48-4c4e-8c03-d1803fe4b1a2",
+									"description": "(Required) The booking identifier."
+								}
+							]
+						},
+						"description": "Delete a restaurant booking given its identifier\n"
+					},
+					"response": []
+				},
+				{
+					"name": "04.400",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/restaurants/:restaurantId/bookings/:bookingId",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"restaurants",
+								":restaurantId",
+								"bookings",
+								":bookingId"
+							],
+							"variable": [
+								{
+									"key": "restaurantId",
+									"value": "1",
+									"description": "(Required) The restaurant identifier."
+								},
+								{
+									"key": "bookingId",
+									"value": "e51e8252-ac48-4c4e-8c03-d1803fe4b1a2",
+									"description": "(Required) The booking identifier."
+								}
+							]
+						},
+						"description": "Delete a restaurant booking given its identifier\n"
+					},
+					"response": []
+				},
+				{
+					"name": "05.400",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/restaurants/:restaurantId/bookings/:bookingId",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"restaurants",
+								":restaurantId",
+								"bookings",
+								":bookingId"
+							],
+							"variable": [
+								{
+									"key": "restaurantId",
+									"value": "e51e8252-ac48-4c4e-8c03-d1803fe4b1a2",
+									"description": "(Required) The restaurant identifier."
+								},
+								{
+									"key": "bookingId",
+									"value": "1",
+									"description": "(Required) The booking identifier."
+								}
+							]
+						},
+						"description": "Delete a restaurant booking given its identifier\n"
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "http://localhost:8086/restaurants-api/v1",
+			"type": "string"
+		}
+	]
+}

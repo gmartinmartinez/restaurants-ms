@@ -47,8 +47,11 @@ public class ReviewEntity {
     @Column(name = "description")
     private String description;
 
-    @Column(name = "user_role")
-    private String user;
+    //@Column(name = "user_role")
+    //private String role;
+
+    //@Column(name = "creation_user")
+    //private String user;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @Fetch(FetchMode.JOIN)

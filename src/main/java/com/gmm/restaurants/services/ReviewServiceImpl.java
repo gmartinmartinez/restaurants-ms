@@ -14,6 +14,7 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 import javax.persistence.EntityNotFoundException;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.orm.jpa.JpaObjectRetrievalFailureException;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -50,7 +51,7 @@ public class ReviewServiceImpl implements ReviewService{
     public List<ReviewModel> getList(String restaurantId) {
         try {
             RestaurantEntity entity = restaurantRepository.getOne(restaurantId);
-            if(entity!=null && entity.getReviews()!=null ) {
+            if(entity.getReviews()!=null ) {
                 return entity.getReviews().stream().map(this::mapEntityToModel).collect(Collectors.toList());
             }
             return new ArrayList<>();
@@ -87,11 +88,13 @@ public class ReviewServiceImpl implements ReviewService{
         } catch (EntityNotFoundException e) {
             log.error(e.getMessage());
             throw new NotFoundException("review", reviewId);
+        } catch (JpaObjectRetrievalFailureException e) {
+            log.error(e.getMessage());
+            throw new NotFoundException("review", reviewId);
         }
     }
 
     private ReviewModel mapEntityToModel(ReviewEntity entity){
-        if(entity!=null){
             return ReviewModel.builder()
                 .id(entity.getId())
                 .creationDate(entity.getCreationDate())
@@ -100,8 +103,6 @@ public class ReviewServiceImpl implements ReviewService{
                 .stars(entity.getStars())
                 .title(entity.getTitle())
                 .build();
-        }
-        return null;
     }
 
     private ReviewEntity mapRequestToEntity(ReviewRequestModel request, String id){

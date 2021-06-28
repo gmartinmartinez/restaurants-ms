@@ -21,7 +21,7 @@ public class ReviewRequestModel   {
   @JsonProperty("senderNick")
   @NotNull
   @Size(max = 50)
-  @Pattern(regexp="\"^[a-zA-Z0-9]*$")
+  @Pattern(regexp="^[a-zA-Z0-9]*$")
   private String senderNick;
 
   /**
