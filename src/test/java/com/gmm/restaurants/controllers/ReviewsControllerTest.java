@@ -72,9 +72,9 @@ public class ReviewsControllerTest {
     @Test
     public void shouldCreateReviewOK() {
         ReviewModel mockData = this.review;
-        when(service.create(anyString(), any())).thenReturn(mockData);
+        when(service.create(anyString(), anyString(), anyString(), any())).thenReturn(mockData);
 
-        ResponseEntity<ReviewModel> response = controller.createRestaurantReview(UUID.randomUUID(), this.request);
+        ResponseEntity<ReviewModel> response = controller.createRestaurantReview("user", "role", UUID.randomUUID(), this.request);
         assertThat(response).isNotNull();
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.CREATED);
         assertThat(response.getBody()).isNotNull();
@@ -83,8 +83,8 @@ public class ReviewsControllerTest {
 
     @Test(expected = NullPointerException.class)
     public void shouldGetExceptionWhenServiceCreateFail() {
-        when(service.create(anyString(), any())).thenThrow(new NullPointerException());
-        controller.createRestaurantReview(UUID.randomUUID(), this.request);
+        when(service.create(anyString(), anyString(), anyString(), any())).thenThrow(new NullPointerException());
+        controller.createRestaurantReview("user", "role", UUID.randomUUID(), this.request);
     }
 
     @Test
@@ -114,8 +114,8 @@ public class ReviewsControllerTest {
     @Test
     public void shouldDeleteRestaurantsByIdOK() {
         ReviewModel mockData = this.review;
-        when(service.update(anyString(), anyString(), any())).thenReturn(mockData);
-        ResponseEntity<ReviewModel> response =  controller.updateRestaurantReview(UUID.randomUUID(), UUID.randomUUID(), request);
+        when(service.update(anyString(), anyString(), anyString(), anyString(), any())).thenReturn(mockData);
+        ResponseEntity<ReviewModel> response =  controller.updateRestaurantReview("user", "role", UUID.randomUUID(), UUID.randomUUID(), request);
         assertThat(response).isNotNull();
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
         assertThat(response.getBody()).isNotNull();

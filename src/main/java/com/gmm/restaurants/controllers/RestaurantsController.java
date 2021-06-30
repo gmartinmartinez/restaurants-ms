@@ -16,6 +16,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import java.util.List;
 import java.util.UUID;
 import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -26,6 +27,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -63,9 +65,12 @@ public class RestaurantsController{
 
         @ApiResponse(responseCode = "500", description = "Internal Server Error", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorResponse.class))) })
     @PostMapping(produces = { "application/json" }, consumes = { "application/json" })
-    public ResponseEntity<RestaurantModel> createRestaurant(@Parameter(in = ParameterIn.DEFAULT, description = "The information of the restaurant.", schema=@Schema()) @Valid @RequestBody RestaurantRequestModel body) {
+    public ResponseEntity<RestaurantModel> createRestaurant(
+        @RequestHeader(name = "x-username") @NotNull String userName,
+        @RequestHeader(name = "x-role") @NotNull String userRole,
+        @Parameter(in = ParameterIn.DEFAULT, description = "The information of the restaurant.", schema=@Schema()) @Valid @RequestBody RestaurantRequestModel body) {
         log.info("Create restaurant");
-        return new ResponseEntity<RestaurantModel>(service.create(body), HttpStatus.CREATED);
+        return new ResponseEntity<RestaurantModel>(service.create(userName, userRole, body), HttpStatus.CREATED);
     }
 
 
@@ -79,9 +84,12 @@ public class RestaurantsController{
 
         @ApiResponse(responseCode = "500", description = "Internal Server Error", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorResponse.class))) })
     @DeleteMapping(value = "/{restaurantId}")
-    public ResponseEntity<Void> deleteRestaurant(@Parameter(in = ParameterIn.PATH, description = "The restaurant identifier.", required=true, schema=@Schema()) @PathVariable("restaurantId") UUID restaurantId) {
+    public ResponseEntity<Void> deleteRestaurant(
+        @RequestHeader(name = "x-username") @NotNull String userName,
+        @RequestHeader(name = "x-role") @NotNull String userRole,
+        @Parameter(in = ParameterIn.PATH, description = "The restaurant identifier.", required=true, schema=@Schema()) @PathVariable("restaurantId") UUID restaurantId) {
         log.info("Delete restaurant");
-        service.delete(restaurantId.toString());
+        service.delete(userName, userRole, restaurantId.toString());
         return new ResponseEntity<>( HttpStatus.NO_CONTENT);
     }
 

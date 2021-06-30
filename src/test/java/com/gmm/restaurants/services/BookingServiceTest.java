@@ -7,6 +7,7 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import com.gmm.restaurants.exceptions.ForbiddenResourceException;
 import com.gmm.restaurants.exceptions.NotFoundException;
 import com.gmm.restaurants.model.api.BookingModel;
 import com.gmm.restaurants.model.api.BookingRequestModel;
@@ -57,7 +58,7 @@ public class BookingServiceTest {
         RestaurantEntity mockData = restaurant;
         when(restaurantRepository.getOne(any())).thenReturn(restaurant);
 
-        List<BookingModel> response = service.getList(UUID.randomUUID().toString());
+        List<BookingModel> response = service.getList("admin", "adminrole",UUID.randomUUID().toString());
         assertThat(response).isNotNull();
         if (mockData.getBookings()!=null)
             assertThat(response.size()).isEqualTo(mockData.getBookings().size());
@@ -71,7 +72,35 @@ public class BookingServiceTest {
         when(restaurantRepository.getOne(any())).thenReturn(restaurant);
         when(bookingRepository.getOne(any())).thenReturn(mockData);
 
-        BookingModel response = service.get(UUID.randomUUID().toString(), UUID.randomUUID().toString());
+        BookingModel response = service.get("admin", "adminrole",UUID.randomUUID().toString(), UUID.randomUUID().toString());
+        assertThat(response).isNotNull();
+        assertThat(response.getId()).isEqualTo(mockData.getId());
+        assertThat(response.getBookingDate()).isEqualTo(mockData.getBookingDate());
+        assertThat(response.getName()).isEqualTo(mockData.getName());
+
+    }
+
+    @Test
+    public void shouldGetBookingByIdRestRole() {
+        BookingEntity mockData = booking;
+        when(restaurantRepository.getOne(any())).thenReturn(restaurant);
+        when(bookingRepository.getOne(any())).thenReturn(mockData);
+
+        BookingModel response = service.get("user", "restrole",UUID.randomUUID().toString(), UUID.randomUUID().toString());
+        assertThat(response).isNotNull();
+        assertThat(response.getId()).isEqualTo(mockData.getId());
+        assertThat(response.getBookingDate()).isEqualTo(mockData.getBookingDate());
+        assertThat(response.getName()).isEqualTo(mockData.getName());
+
+    }
+
+    @Test
+    public void shouldGetBookingByIdCustomer() {
+        BookingEntity mockData = booking;
+        when(restaurantRepository.getOne(any())).thenReturn(restaurant);
+        when(bookingRepository.getOne(any())).thenReturn(mockData);
+
+        BookingModel response = service.get("user", "custrole",UUID.randomUUID().toString(), UUID.randomUUID().toString());
         assertThat(response).isNotNull();
         assertThat(response.getId()).isEqualTo(mockData.getId());
         assertThat(response.getBookingDate()).isEqualTo(mockData.getBookingDate());
@@ -85,7 +114,7 @@ public class BookingServiceTest {
         when(restaurantRepository.getOne(any())).thenReturn(restaurant);
         when(bookingRepository.saveAndFlush(any())).thenReturn(mockData);
 
-        BookingModel response = service.create(UUID.randomUUID().toString(), request);
+        BookingModel response = service.create("admin", "adminrole",UUID.randomUUID().toString(), request);
         assertThat(response).isNotNull();
         assertThat(response.getId()).isEqualTo(mockData.getId());
         assertThat(response.getName()).isEqualTo(mockData.getName());
@@ -93,22 +122,48 @@ public class BookingServiceTest {
     }
 
     @Test
-    public void shouldDeleteBookingList() {
+    public void shouldCreateBookingCustomer() {
+        BookingEntity mockData = booking;
         when(restaurantRepository.getOne(any())).thenReturn(restaurant);
-        when(bookingRepository.findById(any())).thenReturn(Optional.of(booking));
+        when(bookingRepository.saveAndFlush(any())).thenReturn(mockData);
+
+        BookingModel response = service.create("user", "custrole",UUID.randomUUID().toString(), request);
+        assertThat(response).isNotNull();
+        assertThat(response.getId()).isEqualTo(mockData.getId());
+        assertThat(response.getName()).isEqualTo(mockData.getName());
+        assertThat(response.getComments()).isEqualTo(mockData.getComments());
+    }
+
+    @Test
+    public void shouldDeleteBooking() {
+        when(restaurantRepository.getOne(any())).thenReturn(restaurant);
+        when(bookingRepository.getOne(any())).thenReturn(booking);
 
         String id = UUID.randomUUID().toString();
-        service.delete(id, id);
+        service.delete("admin", "adminrole",id, id);
 
         verify(restaurantRepository, times(1)).getOne(id);
-        verify(bookingRepository, times(1)).findById(id);
+        verify(bookingRepository, times(1)).getOne(id);
+        verify(bookingRepository, times(1)).deleteById(id);
+    }
+
+    @Test
+    public void shouldDeleteBookingRestRole() {
+        when(restaurantRepository.getOne(any())).thenReturn(restaurant);
+        when(bookingRepository.getOne(any())).thenReturn(booking);
+
+        String id = UUID.randomUUID().toString();
+        service.delete("user", "restrole",id, id);
+
+        verify(restaurantRepository, times(1)).getOne(id);
+        verify(bookingRepository, times(1)).getOne(id);
         verify(bookingRepository, times(1)).deleteById(id);
     }
 
     @Test(expected = NotFoundException.class)
     public void shouldGetNotFoundExceptionWhenGetRestaurantById() {
         when(restaurantRepository.getOne(any())).thenThrow(new EntityNotFoundException());
-        service.get(UUID.randomUUID().toString(), UUID.randomUUID().toString());
+        service.get("admin", "adminrole",UUID.randomUUID().toString(), UUID.randomUUID().toString());
 
     }
 
@@ -116,35 +171,79 @@ public class BookingServiceTest {
     public void shouldGetNotFoundExceptionWhenGetById() {
         when(restaurantRepository.getOne(any())).thenReturn(restaurant);
         when(bookingRepository.getOne(any())).thenThrow(new EntityNotFoundException());
-        service.get(UUID.randomUUID().toString(), UUID.randomUUID().toString());
+        service.get("admin", "adminrole",UUID.randomUUID().toString(), UUID.randomUUID().toString());
 
     }
 
     @Test(expected = NotFoundException.class)
     public void shouldGetNotFoundExceptionWhenGetRestaurantList() {
         when(restaurantRepository.getOne(any())).thenThrow(new EntityNotFoundException());
-        service.getList(UUID.randomUUID().toString());
+        service.getList("admin", "adminrole",UUID.randomUUID().toString());
 
     }
 
     @Test(expected = NotFoundException.class)
     public void shouldGetNotFoundExceptionWhenCreate() {
         when(restaurantRepository.getOne(any())).thenThrow(new EntityNotFoundException());
-        service.create(UUID.randomUUID().toString(), this.request);
+        service.create("admin", "adminrole",UUID.randomUUID().toString(), this.request);
 
     }
 
     @Test(expected = NotFoundException.class)
     public void shouldGetNotFoundRestaurantExceptionWhenDeleteById() {
         when(restaurantRepository.getOne(any())).thenThrow(new EntityNotFoundException());
-        service.delete(UUID.randomUUID().toString(), UUID.randomUUID().toString());
+        service.delete("admin", "adminrole",UUID.randomUUID().toString(), UUID.randomUUID().toString());
     }
 
     @Test(expected = NotFoundException.class)
     public void shouldGetNotFoundExceptionWhenDeleteById() {
         when(restaurantRepository.getOne(any())).thenReturn(restaurant);
-        when(bookingRepository.findById(any())).thenReturn(Optional.empty());
-        service.delete(UUID.randomUUID().toString(), UUID.randomUUID().toString());
+        when(bookingRepository.getOne(any())).thenThrow(new EntityNotFoundException());
+        service.delete("admin", "adminrole",UUID.randomUUID().toString(), UUID.randomUUID().toString());
+    }
+
+    @Test(expected = ForbiddenResourceException.class)
+    public void shouldGetForbiddenResourceExceptionWhenCreate() {
+        when(restaurantRepository.getOne(any())).thenReturn(restaurant);
+        service.create("user2", "restrole",UUID.randomUUID().toString(), this.request);
+
+    }
+
+    @Test(expected = ForbiddenResourceException.class)
+    public void shouldGetForbiddenResourceExceptionWhenGetList() {
+        when(restaurantRepository.getOne(any())).thenReturn(restaurant);
+        service.getList("user2", "custrole",UUID.randomUUID().toString());
+
+    }
+
+    @Test(expected = ForbiddenResourceException.class)
+    public void shouldGetForbiddenResourceExceptionWhenDelete() {
+        when(restaurantRepository.getOne(any())).thenReturn(restaurant);
+        service.delete("user2", "restrole",UUID.randomUUID().toString(),UUID.randomUUID().toString());
+
+    }
+
+    @Test(expected = ForbiddenResourceException.class)
+    public void shouldGetForbiddenResourceExceptionWhenDeleteCustRole() {
+        when(restaurantRepository.getOne(any())).thenReturn(restaurant);
+        when(bookingRepository.getOne(any())).thenReturn(booking);
+        service.delete("user2", "custrole",UUID.randomUUID().toString(),UUID.randomUUID().toString());
+
+    }
+
+    @Test(expected = ForbiddenResourceException.class)
+    public void shouldGetForbiddenResourceExceptionWhenGet() {
+        when(restaurantRepository.getOne(any())).thenReturn(restaurant);
+        service.delete("user2", "restrole",UUID.randomUUID().toString(),UUID.randomUUID().toString());
+
+    }
+
+    @Test(expected = ForbiddenResourceException.class)
+    public void shouldGetForbiddenResourceExceptionWhenGetCustRole() {
+        when(restaurantRepository.getOne(any())).thenReturn(restaurant);
+        when(bookingRepository.getOne(any())).thenReturn(booking);
+        service.get("user2", "custrole",UUID.randomUUID().toString(),UUID.randomUUID().toString());
+
     }
 
     @Test
@@ -152,7 +251,7 @@ public class BookingServiceTest {
         restaurant.setBookings(null);
         when(restaurantRepository.getOne(any())).thenReturn(restaurant);
 
-        List<BookingModel> response = service.getList(UUID.randomUUID().toString());
+        List<BookingModel> response = service.getList("admin", "adminrole",UUID.randomUUID().toString());
         assertThat(response).isNotNull();
         assertThat(response).isEmpty();
     }

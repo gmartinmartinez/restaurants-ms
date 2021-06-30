@@ -21,9 +21,22 @@ paths:
         - RESTAURANTS
       security:
         - OAuth2:
-            - admin
-            - owner
-            - customer
+            - adminrole
+            - restrole
+            - custrole
+      parameters:
+        - in: header
+          name: x-role
+          description: custom header with user role
+          schema:
+            type: string
+            maxLength: 50
+        - in: header
+          name: x-username
+          description: custom header with user name
+          schema:
+            type: string
+            maxLength: 50
       responses:
         '200':
           description: Partial Content
@@ -46,8 +59,23 @@ paths:
       description: Create a new restaurant
       security:
         - OAuth2:
-            - admin
-            - owner
+            - adminrole
+            - restrole
+      parameters:
+        - in: header
+          name: x-role
+          description: custom header with user role
+          schema:
+            type: string
+            maxLength: 50
+          required: true
+        - in: header
+          name: x-username
+          description: custom header with user name
+          schema:
+            type: string
+            maxLength: 50
+          required: true
       requestBody:
         description: The information of the restaurant.
         content:
@@ -78,9 +106,9 @@ paths:
       description: Get restaurant by Id
       security:
         - OAuth2:
-            - admin
-            - owner
-            - customer
+            - adminrole
+            - restrole
+            - custrole
       parameters:
         - name: restaurantId
           in: path
@@ -90,6 +118,18 @@ paths:
             type: string
             format: uuid
             description: The restaurant identifier.
+        - in: header
+          name: x-role
+          description: custom header with user role
+          schema:
+            type: string
+            maxLength: 50
+        - in: header
+          name: x-username
+          description: custom header with user name
+          schema:
+            type: string
+            maxLength: 50
       responses:
         '200':
           description: Success
@@ -113,8 +153,8 @@ paths:
         Delete a restaurant given its identifier
       security:
         - OAuth2:
-            - admin
-            - owner
+            - adminrole
+            - restrole
       tags:
         - RESTAURANTS
       parameters:
@@ -126,6 +166,20 @@ paths:
             type: string
             format: uuid
             description: The restaurant identifier.
+        - in: header
+          name: x-role
+          description: custom header with user role
+          schema:
+            type: string
+            maxLength: 50
+          required: true
+        - in: header
+          name: x-username
+          description: custom header with user name
+          schema:
+            type: string
+            maxLength: 50
+          required: true
       responses:
         '204':
           description: Success
@@ -147,10 +201,22 @@ paths:
       description: Get a list of reviews for a restaurant
       security:
         - OAuth2:
-            - admin
-            - owner
-            - customer
+            - adminrole
+            - restrole
+            - custrole
       parameters:
+        - in: header
+          name: x-role
+          description: custom header with user role
+          schema:
+            type: string
+            maxLength: 50
+        - in: header
+          name: x-username
+          description: custom header with user name
+          schema:
+            type: string
+            maxLength: 50
         - name: restaurantId
           in: path
           description: The restaurant identifier.
@@ -185,8 +251,8 @@ paths:
       description: Create a restaurant review
       security:
         - OAuth2:
-            - admin
-            - customer
+            - adminrole
+            - custrole
       parameters:
         - name: restaurantId
           in: path
@@ -196,6 +262,20 @@ paths:
             type: string
             format: uuid
             description: The restaurant identifier.
+        - in: header
+          name: x-role
+          description: custom header with user role
+          schema:
+            type: string
+            maxLength: 50
+          required: true
+        - in: header
+          name: x-username
+          description: custom header with user name
+          schema:
+            type: string
+            maxLength: 50
+          required: true
       requestBody:
         description: The information of the restaurant.
         content:
@@ -228,10 +308,22 @@ paths:
       description: Get restaurant review by Id
       security:
         - OAuth2:
-            - admin
-            - owner
-            - customer
+            - adminrole
+            - restrole
+            - custrole
       parameters:
+        - in: header
+          name: x-role
+          description: custom header with user role
+          schema:
+            type: string
+            maxLength: 50
+        - in: header
+          name: x-username
+          description: custom header with user name
+          schema:
+            type: string
+            maxLength: 50
         - name: restaurantId
           in: path
           description: The restaurant identifier.
@@ -272,9 +364,23 @@ paths:
       description: Update restaurant review by Id
       security:
         - OAuth2:
-            - admin
-            - customer
+            - adminrole
+            - custrole
       parameters:
+        - in: header
+          name: x-role
+          description: custom header with user role
+          schema:
+            type: string
+            maxLength: 50
+          required: true
+        - in: header
+          name: x-username
+          description: custom header with user name
+          schema:
+            type: string
+            maxLength: 50
+          required: true
         - name: restaurantId
           in: path
           description: The restaurant identifier.
@@ -323,10 +429,24 @@ paths:
       description: Get booking list for the restaurant
       security:
         - OAuth2:
-            - admin
-            - owner
-            - customer
+            - adminrole
+            - restrole
+            - custrole
       parameters:
+        - in: header
+          name: x-role
+          description: custom header with user role
+          schema:
+            type: string
+            maxLength: 50
+          required: true
+        - in: header
+          name: x-username
+          description: custom header with user name
+          schema:
+            type: string
+            maxLength: 50
+          required: true
         - name: restaurantId
           in: path
           description: The restaurant identifier.
@@ -361,10 +481,24 @@ paths:
       description: Create a new booking for the restaurant
       security:
         - OAuth2:
-            - admin
-            - owner
-            - customer
+            - adminrole
+            - restrole
+            - custrole
       parameters:
+        - in: header
+          name: x-role
+          description: custom header with user role
+          schema:
+            type: string
+            maxLength: 50
+          required: true
+        - in: header
+          name: x-username
+          description: custom header with user name
+          schema:
+            type: string
+            maxLength: 50
+          required: true
         - name: restaurantId
           in: path
           description: The restaurant identifier.
@@ -405,10 +539,24 @@ paths:
       description: Get a booking by identifier for the restaurant
       security:
         - OAuth2:
-            - admin
-            - owner
-            - customer
+            - adminrole
+            - restrole
+            - custrole
       parameters:
+        - in: header
+          name: x-role
+          description: custom header with user role
+          schema:
+            type: string
+            maxLength: 50
+          required: true
+        - in: header
+          name: x-username
+          description: custom header with user name
+          schema:
+            type: string
+            maxLength: 50
+          required: true
         - name: restaurantId
           in: path
           description: The restaurant identifier.
@@ -448,12 +596,26 @@ paths:
         Delete a restaurant booking given its identifier
       security:
         - OAuth2:
-            - admin
-            - owner
-            - customer
+            - adminrole
+            - restrole
+            - custrole
       tags:
         - BOOKINGS
       parameters:
+        - in: header
+          name: x-role
+          description: custom header with user role
+          schema:
+            type: string
+            maxLength: 50
+          required: true
+        - in: header
+          name: x-username
+          description: custom header with user name
+          schema:
+            type: string
+            maxLength: 50
+          required: true
         - name: restaurantId
           in: path
           description: The restaurant identifier.
@@ -491,10 +653,22 @@ paths:
       description: Get menus list for the restaurant
       security:
         - OAuth2:
-            - admin
-            - owner
-            - customer
+            - adminrole
+            - restrole
+            - custrole
       parameters:
+        - in: header
+          name: x-role
+          description: custom header with user role
+          schema:
+            type: string
+            maxLength: 50
+        - in: header
+          name: x-username
+          description: custom header with user name
+          schema:
+            type: string
+            maxLength: 50
         - name: restaurantId
           in: path
           description: The restaurant identifier.
@@ -530,10 +704,22 @@ paths:
       description: Get a menu of the restaurant by id
       security:
         - OAuth2:
-            - admin
-            - owner
-            - customer
+            - adminrole
+            - restrole
+            - custrole
       parameters:
+        - in: header
+          name: x-role
+          description: custom header with user role
+          schema:
+            type: string
+            maxLength: 50
+        - in: header
+          name: x-username
+          description: custom header with user name
+          schema:
+            type: string
+            maxLength: 50
         - name: restaurantId
           in: path
           description: The restaurant identifier.
@@ -962,6 +1148,6 @@ components:
             authorizationUrl: https://example.com/oauth/authorize
             tokenUrl: https://example.com/oauth/token
             scopes:
-              admin: Grants access to all operations
-              owner: Grants access to owner operations
-              customer: Grants access customer operations
+              aminrole: Grants access to all operations
+              restrole: Grants access to restrole operations
+              custrole: Grants access custrole operations

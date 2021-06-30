@@ -31,6 +31,8 @@ public final class EntityGeneratorUtils {
             .creationDate(LocalDateTime.now())
             .comments("")
             .bookingDate(LocalDateTime.now())
+            .user("user")
+            .role("custrole")
             .build();
     }
 
@@ -52,6 +54,8 @@ public final class EntityGeneratorUtils {
             .nick("user003")
             .creationDate(LocalDateTime.now())
             .description("Very good restaurant")
+            .user("user")
+            .role("custrole")
             .restaurant(UUID.randomUUID().toString())
             .build();
     }
@@ -71,6 +75,8 @@ public final class EntityGeneratorUtils {
             .province("Madrid")
             .website("http://restaurante.mostoles.com")
             .zipcode("28925")
+            .user("user")
+            .role("restrole")
             .bookings(Arrays.asList(createBooking()))
             .reviews(Arrays.asList(createReview()))
             .menus(Arrays.asList(createMenu()))

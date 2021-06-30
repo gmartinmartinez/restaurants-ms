@@ -12,6 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.MissingRequestHeaderException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
@@ -59,6 +60,20 @@ public class HandlerResponseException {
                     .build());
     }
 
+    @ExceptionHandler({MissingRequestHeaderException.class})
+    public ResponseEntity<ErrorResponse> toResponseMissingRequestHeaderException(
+        MissingRequestHeaderException missingRequestHeaderException) {
+        log.error("MissingRequestHeaderException error");
+        return ResponseEntity
+            .status(HttpStatus.BAD_REQUEST)
+            .body(
+                ErrorResponse.builder()
+                    .code("MISSING_HEADER")
+                    .severity(SeverityEnum.ERROR)
+                    .message(HttpStatus.BAD_REQUEST.getReasonPhrase())
+                    .build());
+    }
+
     @ExceptionHandler({MethodArgumentTypeMismatchException.class})
     public ResponseEntity<ErrorResponse> toResponseMethodArgumentTypeMismatchException(
         MethodArgumentTypeMismatchException exception) {
@@ -89,6 +104,20 @@ public class HandlerResponseException {
                     .code("NOT_FOUND_ITEM")
                     .severity(SeverityEnum.ERROR)
                     .message(HttpStatus.NOT_FOUND.getReasonPhrase())
+                    .build());
+    }
+
+    @ExceptionHandler({ForbiddenResourceException.class})
+    public ResponseEntity<ErrorResponse> toResponseForbiddenResourceException(
+        ForbiddenResourceException forbiddenResourceException) {
+        log.error(forbiddenResourceException.toString());
+        return ResponseEntity
+            .status(HttpStatus.FORBIDDEN)
+            .body(
+                ErrorResponse.builder()
+                    .code("FORBIDDEN_RESOURCE")
+                    .severity(SeverityEnum.ERROR)
+                    .message(forbiddenResourceException.toString())
                     .build());
     }
 

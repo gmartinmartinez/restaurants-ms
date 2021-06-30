@@ -1,5 +1,6 @@
 package com.gmm.restaurants.services;
 
+import com.gmm.restaurants.exceptions.ForbiddenResourceException;
 import com.gmm.restaurants.exceptions.NotFoundException;
 import com.gmm.restaurants.model.api.RestaurantModel;
 import com.gmm.restaurants.model.api.RestaurantRequestModel;
@@ -41,19 +42,26 @@ public class RestaurantServiceImpl implements RestaurantService {
     }
 
     @Override
-    public RestaurantModel create(RestaurantRequestModel restaurant) {
-        return mapEntityToModel(repository.saveAndFlush(mapRequestToEntity(restaurant)));
+    public RestaurantModel create(String userName, String userRole, RestaurantRequestModel restaurant) {
+        if(userRole.equals("custrole") )
+            throw new ForbiddenResourceException("booking", userName);
+        return mapEntityToModel(repository.saveAndFlush(mapRequestToEntity(userName, userRole, restaurant)));
     }
 
     @Override
-    public void delete(String id) {
+    public void delete(String userName, String userRole, String id) {
         try {
-            repository.getOne(id).getAddress();
+            RestaurantEntity entity = repository.getOne(id);
+            if ((userName.equals(entity.getUser()) && userRole.equals("restrole") ) || userRole.equals("adminrole") )  {
+                repository.deleteById(id);
+            } else {
+                throw new ForbiddenResourceException("restaurant", userName);
+            }
         } catch (EntityNotFoundException e) {
             log.error("EntityNotFoundException", e);
             throw new NotFoundException("restaurant", id);
         }
-        repository.deleteById(id);
+
     }
 
     private RestaurantModel mapEntityToModel(RestaurantEntity entity){
@@ -74,7 +82,7 @@ public class RestaurantServiceImpl implements RestaurantService {
                 .build();
     }
 
-    private RestaurantEntity mapRequestToEntity(RestaurantRequestModel request){
+    private RestaurantEntity mapRequestToEntity(String userName, String userRole, RestaurantRequestModel request){
             return RestaurantEntity.builder()
                 .id(UUID.randomUUID().toString())
                 .address(request.getAddress())
@@ -89,6 +97,8 @@ public class RestaurantServiceImpl implements RestaurantService {
                 .province(request.getProvince())
                 .website(request.getWebsite())
                 .zipcode(request.getZipcode())
+                .user(userName)
+                .role(userRole)
                 .build();
     }
 }

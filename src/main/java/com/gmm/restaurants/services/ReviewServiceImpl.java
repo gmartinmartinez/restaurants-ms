@@ -1,5 +1,6 @@
 package com.gmm.restaurants.services;
 
+import com.gmm.restaurants.exceptions.ForbiddenResourceException;
 import com.gmm.restaurants.exceptions.NotFoundException;
 import com.gmm.restaurants.model.api.ReviewModel;
 import com.gmm.restaurants.model.api.ReviewRequestModel;
@@ -62,29 +63,39 @@ public class ReviewServiceImpl implements ReviewService{
     }
 
     @Override
-    public ReviewModel create(String restaurantId, ReviewRequestModel request) {
+    public ReviewModel create(String userName, String userRole, String restaurantId, ReviewRequestModel request) {
         try {
-            restaurantRepository.getOne(restaurantId).getAddress();
+            RestaurantEntity entity = restaurantRepository.getOne(restaurantId);
+            if (userName.equals(entity.getUser()) && userRole.equals("restrole"))
+                throw new ForbiddenResourceException("review", userName);
         } catch (EntityNotFoundException e) {
             log.error(e.getMessage());
             throw new NotFoundException("restaurant", restaurantId);
         }
-        return mapEntityToModel(reviewRepository.saveAndFlush(mapRequestToEntity(request, restaurantId)));
+        return mapEntityToModel(reviewRepository.saveAndFlush(mapRequestToEntity(userName, userRole, request, restaurantId)));
     }
 
     @Override
-    public ReviewModel update(String restaurantId, String reviewId, ReviewRequestModel request) {
+    public ReviewModel update(String userName, String userRole, String restaurantId, String reviewId, ReviewRequestModel request) {
         try {
-            restaurantRepository.getOne(restaurantId).getAddress();
+            RestaurantEntity entity = restaurantRepository.getOne(restaurantId);
+            if (userName.equals(entity.getUser()) && userRole.equals("restrole"))
+                throw new ForbiddenResourceException("review", userName);
         } catch (EntityNotFoundException e) {
             log.error(e.getMessage());
             throw new NotFoundException("restaurant", restaurantId);
         }
         try {
             ReviewEntity entity = reviewRepository.getOne(reviewId);
-            ReviewEntity updateEntity = mapRequestToEntity(request, restaurantId);
-            updateEntity.setId(entity.getId());
-            return mapEntityToModel(reviewRepository.saveAndFlush(updateEntity));
+            if ((userName.equals(entity.getUser()) && userRole.equals("custrole")) ||
+                userRole.equals("adminrole") || userRole.equals("restrole") ) {
+                ReviewEntity updateEntity = mapRequestToEntity(userName, userRole, request,
+                    restaurantId);
+                updateEntity.setId(entity.getId());
+                return mapEntityToModel(reviewRepository.saveAndFlush(updateEntity));
+            } else {
+                throw new ForbiddenResourceException("review", userName);
+            }
         } catch (EntityNotFoundException e) {
             log.error(e.getMessage());
             throw new NotFoundException("review", reviewId);
@@ -105,7 +116,7 @@ public class ReviewServiceImpl implements ReviewService{
                 .build();
     }
 
-    private ReviewEntity mapRequestToEntity(ReviewRequestModel request, String id){
+    private ReviewEntity mapRequestToEntity(String userName, String userRole, ReviewRequestModel request, String id){
         return ReviewEntity.builder()
             .id(UUID.randomUUID().toString())
             .creationDate(LocalDateTime.now())
@@ -114,6 +125,8 @@ public class ReviewServiceImpl implements ReviewService{
             .nick(request.getSenderNick())
             .stars(request.getStars().getValue())
             .title(request.getTitle())
+            .user(userName)
+            .role(userRole)
             .build();
     }
 }

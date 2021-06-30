@@ -16,6 +16,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import java.util.List;
 import java.util.UUID;
 import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -26,6 +27,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -53,9 +55,13 @@ public class BookingsController {
 
         @ApiResponse(responseCode = "500", description = "Internal Server Error", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorResponse.class))) })
     @DeleteMapping(value = "/{restaurantId}/bookings/{bookingId}")
-    public ResponseEntity<Void> cancelBooking(@Parameter(in = ParameterIn.PATH, description = "The restaurant identifier.", required=true, schema=@Schema()) @PathVariable("restaurantId") UUID restaurantId,@Parameter(in = ParameterIn.PATH, description = "The booking identifier.", required=true, schema=@Schema()) @PathVariable("bookingId") UUID bookingId) {
+    public ResponseEntity<Void> cancelBooking(
+        @RequestHeader(name = "x-username") @NotNull String userName,
+        @RequestHeader(name = "x-role") @NotNull String userRole,
+        @Parameter(in = ParameterIn.PATH, description = "The restaurant identifier.", required=true, schema=@Schema()) @PathVariable("restaurantId") UUID restaurantId,
+        @Parameter(in = ParameterIn.PATH, description = "The booking identifier.", required=true, schema=@Schema()) @PathVariable("bookingId") UUID bookingId) {
         log.info("Delete restaurant booking by id");
-        service.delete(restaurantId.toString(), bookingId.toString());
+        service.delete(userName, userRole, restaurantId.toString(), bookingId.toString());
         return new ResponseEntity<>( HttpStatus.NO_CONTENT);
     }
 
@@ -69,9 +75,13 @@ public class BookingsController {
 
         @ApiResponse(responseCode = "500", description = "Internal Server Error", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorResponse.class))) })
     @GetMapping(value = "/{restaurantId}/bookings/{bookingId}", produces = { "application/json" })
-    public ResponseEntity<BookingModel> getBookingById(@Parameter(in = ParameterIn.PATH, description = "The restaurant identifier.", required=true, schema=@Schema()) @PathVariable("restaurantId") UUID restaurantId,@Parameter(in = ParameterIn.PATH, description = "The booking identifier.", required=true, schema=@Schema()) @PathVariable("bookingId") UUID bookingId) {
+    public ResponseEntity<BookingModel> getBookingById(
+        @RequestHeader(name = "x-username") String userName,
+        @RequestHeader(name = "x-role") String userRole,
+        @Parameter(in = ParameterIn.PATH, description = "The restaurant identifier.", required=true, schema=@Schema()) @PathVariable("restaurantId") UUID restaurantId,
+        @Parameter(in = ParameterIn.PATH, description = "The booking identifier.", required=true, schema=@Schema()) @PathVariable("bookingId") UUID bookingId) {
         log.info("Get restaurant booking by id");
-        return new ResponseEntity<BookingModel>(service.get(restaurantId.toString(), bookingId.toString()), HttpStatus.OK);
+        return new ResponseEntity<BookingModel>(service.get(userName, userRole, restaurantId.toString(), bookingId.toString()), HttpStatus.OK);
     }
 
 
@@ -85,9 +95,12 @@ public class BookingsController {
 
         @ApiResponse(responseCode = "500", description = "Internal Server Error", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorResponse.class))) })
     @GetMapping(value = "/{restaurantId}/bookings", produces = { "application/json" })
-    public ResponseEntity<List<BookingModel>> getRestaurantBookings(@Parameter(in = ParameterIn.PATH, description = "The restaurant identifier.", required=true, schema=@Schema()) @PathVariable("restaurantId") UUID restaurantId) {
+    public ResponseEntity<List<BookingModel>> getRestaurantBookings(
+        @RequestHeader(name = "x-username") @NotNull String userName,
+        @RequestHeader(name = "x-role") @NotNull String userRole,
+        @Parameter(in = ParameterIn.PATH, description = "The restaurant identifier.", required=true, schema=@Schema()) @PathVariable("restaurantId") UUID restaurantId) {
         log.info("Get restaurant bookings list");
-        return new ResponseEntity<List<BookingModel>>(service.getList(restaurantId.toString()), HttpStatus.OK);
+        return new ResponseEntity<List<BookingModel>>(service.getList(userName, userRole, restaurantId.toString()), HttpStatus.OK);
     }
 
     @Operation(summary = "Create booking", description = "Create a new booking for the restaurant", tags={ "BOOKINGS" })
@@ -100,9 +113,13 @@ public class BookingsController {
 
         @ApiResponse(responseCode = "500", description = "Internal Server Error", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorResponse.class))) })
     @PostMapping(value = "/{restaurantId}/bookings", produces = { "application/json" }, consumes = { "application/json" })
-    public ResponseEntity<BookingModel> createRestaurantBooking(@Parameter(in = ParameterIn.PATH, description = "The restaurant identifier.", required=true, schema=@Schema()) @PathVariable("restaurantId") UUID restaurantId,@Parameter(in = ParameterIn.DEFAULT, description = "The information of the booking.", schema=@Schema()) @Valid @RequestBody BookingRequestModel body) {
+    public ResponseEntity<BookingModel> createRestaurantBooking(
+        @RequestHeader(name = "x-username") @NotNull String userName,
+        @RequestHeader(name = "x-role") @NotNull String userRole,
+        @Parameter(in = ParameterIn.PATH, description = "The restaurant identifier.", required=true, schema=@Schema()) @PathVariable("restaurantId") UUID restaurantId,
+        @Parameter(in = ParameterIn.DEFAULT, description = "The information of the booking.", schema=@Schema()) @Valid @RequestBody BookingRequestModel body) {
         log.info("Create restaurant booking");
-        return new ResponseEntity<BookingModel>(service.create(restaurantId.toString(), body), HttpStatus.CREATED);
+        return new ResponseEntity<BookingModel>(service.create(userName, userRole, restaurantId.toString(), body), HttpStatus.CREATED);
     }
 
 }

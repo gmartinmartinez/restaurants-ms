@@ -49,7 +49,8 @@ public class MenusController {
         @ApiResponse(responseCode = "500", description = "Internal Server Error", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorResponse.class))) })
     @GetMapping(value = "/{restaurantId}/menus",
         produces = { "application/json" })
-    public ResponseEntity<List<SummaryMenuModel>> getRestaurantMenus(@Parameter(in = ParameterIn.PATH, description = "The restaurant identifier.", required=true, schema=@Schema()) @PathVariable("restaurantId") UUID restaurantId) {
+    public ResponseEntity<List<SummaryMenuModel>> getRestaurantMenus(
+        @Parameter(in = ParameterIn.PATH, description = "The restaurant identifier.", required=true, schema=@Schema()) @PathVariable("restaurantId") UUID restaurantId) {
         log.info("Get restaurant menu list");
         return new ResponseEntity<List<SummaryMenuModel>>(service.getMenuList(restaurantId.toString()), HttpStatus.OK);
 
@@ -66,7 +67,8 @@ public class MenusController {
         @ApiResponse(responseCode = "500", description = "Internal Server Error", content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorResponse.class))) })
     @GetMapping(value = "/{restaurantId}/menus/{menuId}",
         produces = { "application/json" })
-    public ResponseEntity<MenuModel> getRestaurantMenuById(@Parameter(in = ParameterIn.PATH, description = "The restaurant identifier.", required=true, schema=@Schema()) @PathVariable("restaurantId") UUID restaurantId,@Parameter(in = ParameterIn.PATH, description = "The menu identifier.", required=true, schema=@Schema()) @PathVariable("menuId") UUID menuId) {
+    public ResponseEntity<MenuModel> getRestaurantMenuById(
+        @Parameter(in = ParameterIn.PATH, description = "The restaurant identifier.", required=true, schema=@Schema()) @PathVariable("restaurantId") UUID restaurantId,@Parameter(in = ParameterIn.PATH, description = "The menu identifier.", required=true, schema=@Schema()) @PathVariable("menuId") UUID menuId) {
         log.info("Get restaurant menu detail");
         MenuModel menu = service.getMenuDishes(restaurantId.toString(), menuId.toString());
         if(menu!=null)

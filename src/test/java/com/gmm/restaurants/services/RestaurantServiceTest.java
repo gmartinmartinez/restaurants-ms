@@ -7,6 +7,7 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import com.gmm.restaurants.exceptions.ForbiddenResourceException;
 import com.gmm.restaurants.exceptions.NotFoundException;
 import com.gmm.restaurants.model.api.RestaurantModel;
 import com.gmm.restaurants.model.api.RestaurantRequestModel;
@@ -82,7 +83,7 @@ public class RestaurantServiceTest {
         RestaurantEntity mockData = restaurant;
         when(repository.saveAndFlush(any())).thenReturn(mockData);
 
-        RestaurantModel response = service.create(request);
+        RestaurantModel response = service.create("admin", "adminrole", request);
         assertThat(response).isNotNull();
         assertThat(response.getId()).isEqualTo(mockData.getId());
         assertThat(response.getAddress()).isEqualTo(mockData.getAddress());
@@ -90,11 +91,34 @@ public class RestaurantServiceTest {
     }
 
     @Test
-    public void shouldDeleteRestaurantList() {
+    public void shouldCreateRestaurantRestRole() {
+        RestaurantEntity mockData = restaurant;
+        when(repository.saveAndFlush(any())).thenReturn(mockData);
+
+        RestaurantModel response = service.create("user", "restrole", request);
+        assertThat(response).isNotNull();
+        assertThat(response.getId()).isEqualTo(mockData.getId());
+        assertThat(response.getAddress()).isEqualTo(mockData.getAddress());
+        assertThat(response.getDescription()).isEqualTo(mockData.getDescription());
+    }
+
+    @Test
+    public void shouldDeleteRestaurant() {
         when(repository.getOne(any())).thenReturn(restaurant);
 
         String id = UUID.randomUUID().toString();
-        service.delete(id);
+        service.delete("admin", "adminrole", id);
+
+        verify(repository, times(1)).getOne(id);
+        verify(repository, times(1)).deleteById(id);
+    }
+
+    @Test
+    public void shouldDeleteRestaurantRestRole() {
+        when(repository.getOne(any())).thenReturn(restaurant);
+
+        String id = UUID.randomUUID().toString();
+        service.delete("user", "restrole", id);
 
         verify(repository, times(1)).getOne(id);
         verify(repository, times(1)).deleteById(id);
@@ -110,7 +134,20 @@ public class RestaurantServiceTest {
     @Test(expected = NotFoundException.class)
     public void shouldGetNotFoundExceptionWhenDeleteById() {
         when(repository.getOne(any())).thenThrow(new EntityNotFoundException());
-        service.delete(UUID.randomUUID().toString());
+        service.delete("admin", "adminrole",UUID.randomUUID().toString());
+    }
+
+    @Test(expected = ForbiddenResourceException.class)
+    public void shouldGetForbiddenResourceExceptionWhenDelete() {
+        when(repository.getOne(any())).thenReturn(restaurant);
+        service.delete("user2", "custrole",UUID.randomUUID().toString());
+
+    }
+
+    @Test(expected = ForbiddenResourceException.class)
+    public void shouldGetForbiddenResourceExceptionWhenCreate() {
+        service.create("user2", "custrole", this.request);
+
     }
 
 }

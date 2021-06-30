@@ -10,8 +10,8 @@ public interface RestaurantService {
 
     List<RestaurantModel> getList();
 
-    RestaurantModel create(RestaurantRequestModel restaurant);
+    RestaurantModel create(String userName, String userRole, RestaurantRequestModel restaurant);
 
-    void delete(String id);
+    void delete(String userName, String userRole, String id);
 
 }

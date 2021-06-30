@@ -10,8 +10,8 @@ public interface ReviewService {
 
     List<ReviewModel> getList(String restaurantId);
 
-    ReviewModel create(String restaurantId, ReviewRequestModel request);
+    ReviewModel create(String userName, String userRole, String restaurantId, ReviewRequestModel request);
 
-    ReviewModel update(String restaurantId, String reviewId, ReviewRequestModel request);
+    ReviewModel update(String userName, String userRole, String restaurantId, String reviewId, ReviewRequestModel request);
 
 }

@@ -1,5 +1,6 @@
 package com.gmm.restaurants.services;
 
+import com.gmm.restaurants.exceptions.ForbiddenResourceException;
 import com.gmm.restaurants.exceptions.NotFoundException;
 import com.gmm.restaurants.model.api.BookingModel;
 import com.gmm.restaurants.model.api.BookingRequestModel;
@@ -29,9 +30,8 @@ public class BookingServiceImpl implements BookingService {
     }
 
     @Override
-    public BookingModel get(String restaurantId, String bookingId) {
-
-        try {
+    public BookingModel get(String userName, String userRole, String restaurantId, String bookingId) {
+     try {
             restaurantRepository.getOne(restaurantId).getAddress();
         } catch (EntityNotFoundException e) {
             log.error("EntityNotFoundException", e);
@@ -39,7 +39,14 @@ public class BookingServiceImpl implements BookingService {
         }
 
         try {
-            return mapEntityToModel(bookingRepository.getOne(bookingId));
+            BookingEntity entity = bookingRepository.getOne(bookingId);
+            if ((userName.equals(entity.getUser()) && userRole.equals("custrole")) ||
+                userRole.equals("adminrole") || userRole.equals("restrole") )  {
+                return mapEntityToModel(entity);
+            } else {
+                throw new ForbiddenResourceException("booking", userName);
+            }
+
         } catch (EntityNotFoundException e) {
             log.error("EntityNotFoundException", e);
             throw new NotFoundException("booking", bookingId);
@@ -47,13 +54,18 @@ public class BookingServiceImpl implements BookingService {
     }
 
     @Override
-    public List<BookingModel> getList(String restaurantId) {
+    public List<BookingModel> getList(String userName, String userRole, String restaurantId) {
         try {
             RestaurantEntity entity = restaurantRepository.getOne(restaurantId);
-            if(entity.getBookings()!=null ) {
-                return entity.getBookings().stream().map(this::mapEntityToModel).collect(Collectors.toList());
+            if ((userName.equals(entity.getUser()) && userRole.equals("restrole") ) || userRole.equals("adminrole") ) {
+                if (entity.getBookings() != null) {
+                    return entity.getBookings().stream().map(this::mapEntityToModel)
+                        .collect(Collectors.toList());
+                }
+                return new ArrayList<>();
+            } else {
+                throw new ForbiddenResourceException("booking", userName);
             }
-            return new ArrayList<>();
         } catch (EntityNotFoundException e) {
             log.error("EntityNotFoundException", e);
             throw new NotFoundException("restaurant", restaurantId);
@@ -61,28 +73,42 @@ public class BookingServiceImpl implements BookingService {
     }
 
     @Override
-    public BookingModel create(String restaurantId, BookingRequestModel request) {
+    public BookingModel create(String userName, String userRole, String restaurantId, BookingRequestModel request) {
         try {
-            restaurantRepository.getOne(restaurantId).getAddress();
+            RestaurantEntity entity = restaurantRepository.getOne(restaurantId);
+            if ((userName.equals(entity.getUser()) && userRole.equals("restrole")) || userRole.equals("adminrole")
+                            || userRole.equals("custrole")) {
+                return mapEntityToModel(bookingRepository.saveAndFlush(mapRequestToEntity(userName, userRole, request, restaurantId)));
+            } else {
+                throw new ForbiddenResourceException("booking", userName);
+            }
         } catch (EntityNotFoundException e) {
             log.error("EntityNotFoundException", e);
             throw new NotFoundException("restaurant", restaurantId);
         }
-        return mapEntityToModel(bookingRepository.saveAndFlush(mapRequestToEntity(request, restaurantId)));
     }
 
     @Override
-    public void delete(String restaurantId, String bookingId) {
+    public void delete(String userName, String userRole, String restaurantId, String bookingId) {
         try {
-            restaurantRepository.getOne(restaurantId).getAddress();
+            RestaurantEntity entity = restaurantRepository.getOne(restaurantId);
+            if(!userName.equals(entity.getUser()) && userRole.equals("restrole")) {
+                throw new ForbiddenResourceException("booking", userName);
+            }
         } catch (EntityNotFoundException e) {
             log.error("EntityNotFoundException", e);
             throw new NotFoundException("restaurant", restaurantId);
         }
-
-        if (bookingRepository.findById(bookingId).isPresent()) {
-            bookingRepository.deleteById(bookingId);
-        } else {
+        try {
+            BookingEntity bookingEntity = bookingRepository.getOne(bookingId);
+            if ((userName.equals(bookingEntity.getUser()) && userRole.equals("custrole")) ||
+            userRole.equals("adminrole") || userRole.equals("restrole")) {
+                bookingRepository.deleteById(bookingId);
+            } else {
+                throw new ForbiddenResourceException("booking", userName);
+            }
+        } catch (EntityNotFoundException e) {
+            log.error("EntityNotFoundException", e);
             throw new NotFoundException("booking", bookingId);
         }
     }
@@ -100,7 +126,7 @@ public class BookingServiceImpl implements BookingService {
                 .build();
     }
 
-    private BookingEntity mapRequestToEntity(BookingRequestModel request, String id){
+    private BookingEntity mapRequestToEntity(String userName, String userRole, BookingRequestModel request, String id){
         return BookingEntity.builder()
             .id(UUID.randomUUID().toString())
             .bookingDate(request.getBookingDate())
@@ -111,6 +137,8 @@ public class BookingServiceImpl implements BookingService {
             .name(request.getName())
             .peopleNumber(request.getNumberOfPeople())
             .phone(request.getPhone())
+            .user(userName)
+            .role(userRole)
             .build();
     }
 }

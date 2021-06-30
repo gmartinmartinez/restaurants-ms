@@ -45,9 +45,9 @@ public class BookingsControllerTest {
     @DisplayName("Get Bookings List Ok")
     public void shouldGetBookingsListOK() {
         List<BookingModel> mockData = this.generateBookingList();
-        when(service.getList(any())).thenReturn(mockData);
+        when(service.getList(anyString(), anyString(), any())).thenReturn(mockData);
 
-        ResponseEntity<List<BookingModel>> response = controller.getRestaurantBookings(UUID.randomUUID());
+        ResponseEntity<List<BookingModel>> response = controller.getRestaurantBookings("user", "role", UUID.randomUUID());
         assertThat(response).isNotNull();
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
         assertThat(response.getBody()).isNotNull();
@@ -57,8 +57,8 @@ public class BookingsControllerTest {
     @Test(expected = NullPointerException.class)
     @DisplayName("Get exception when service fails")
     public void shouldGetExceptionWhenServiceFail() {
-        when(service.getList(any())).thenThrow(new NullPointerException());
-         controller.getRestaurantBookings(UUID.randomUUID());
+        when(service.getList(anyString(), anyString(), any())).thenThrow(new NullPointerException());
+         controller.getRestaurantBookings("user", "role", UUID.randomUUID());
     }
 
 
@@ -66,9 +66,9 @@ public class BookingsControllerTest {
     @DisplayName("Create Booking Ok")
     public void shouldCreateBookingOK() {
         BookingModel mockData = this.generateBooking();
-        when(service.create(anyString(), any())).thenReturn(mockData);
+        when(service.create(anyString(), anyString(), anyString(), any())).thenReturn(mockData);
 
-        ResponseEntity<BookingModel> response = controller.createRestaurantBooking(UUID.randomUUID(), this.generateBookingRequest());
+        ResponseEntity<BookingModel> response = controller.createRestaurantBooking("user", "role", UUID.randomUUID(), this.generateBookingRequest());
         assertThat(response).isNotNull();
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.CREATED);
         assertThat(response.getBody()).isNotNull();
@@ -78,17 +78,17 @@ public class BookingsControllerTest {
     @Test(expected = NullPointerException.class)
     @DisplayName("Get exception when create service fails")
     public void shouldGetExceptionWhenServiceCreateFail() {
-        when(service.create(anyString(), any())).thenThrow(new NullPointerException());
-        controller.createRestaurantBooking(UUID.randomUUID(), this.generateBookingRequest());
+        when(service.create(anyString(), anyString(), anyString(), any())).thenThrow(new NullPointerException());
+        controller.createRestaurantBooking("user", "role", UUID.randomUUID(), this.generateBookingRequest());
     }
 
     @Test
     @DisplayName("Get Booking by Id Ok")
     public void shouldGetBookingsByIdOK() {
         BookingModel mockData = this.generateBooking();
-        when(service.get(anyString(), anyString())).thenReturn(mockData);
+        when(service.get(anyString(), anyString(), anyString(), anyString())).thenReturn(mockData);
 
-        ResponseEntity<BookingModel> response = controller.getBookingById(UUID.randomUUID(), UUID.randomUUID());
+        ResponseEntity<BookingModel> response = controller.getBookingById("user", "role", UUID.randomUUID(), UUID.randomUUID());
         assertThat(response).isNotNull();
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
         assertThat(response.getBody()).isNotNull();
@@ -98,23 +98,23 @@ public class BookingsControllerTest {
     @Test(expected = NotFoundException.class)
     @DisplayName("Get exception when get service not founds id")
     public void shouldGetNotFoundExceptionWhenGetByIdNotFound() {
-        when(service.get(anyString(), anyString())).thenThrow(new NotFoundException("restaurant", UUID.randomUUID().toString()));
-        controller.getBookingById(UUID.randomUUID(), UUID.randomUUID());
+        when(service.get(anyString(), anyString(), anyString(), anyString())).thenThrow(new NotFoundException("restaurant", UUID.randomUUID().toString()));
+        controller.getBookingById("user", "role", UUID.randomUUID(), UUID.randomUUID());
     }
 
     @Test(expected = NullPointerException.class)
     @DisplayName("Get exception when get service fails")
     public void shouldGetExceptionWhenServiceGetFail() {
-        when(service.get(anyString(), anyString())).thenThrow(new NullPointerException());
-        controller.getBookingById(UUID.randomUUID(), UUID.randomUUID());
+        when(service.get(anyString(), anyString(), anyString(), anyString())).thenThrow(new NullPointerException());
+        controller.getBookingById("user", "role", UUID.randomUUID(), UUID.randomUUID());
     }
 
     @Test
     @DisplayName("Delete Booking by Id Ok")
     public void shouldDeleteRestaurantsByIdOK() {
 
-        controller.cancelBooking(UUID.randomUUID(), UUID.randomUUID());
-        verify(service).delete(anyString(), anyString());
+        controller.cancelBooking("user", "role", UUID.randomUUID(), UUID.randomUUID());
+        verify(service).delete(anyString(), anyString(), anyString(), anyString());
     }
 
     private List<BookingModel> generateBookingList() {

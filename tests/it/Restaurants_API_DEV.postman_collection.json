@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "fbe38b50-b240-4226-b544-d66d58bf4e5a",
+		"_postman_id": "2b9c751d-b3c6-4b98-9501-0fe142233893",
 		"name": "Restaurants_API_DEV",
 		"description": "Contact Support:\n Name: Gema Martin\n Email: gema.m2@gmail.com",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
@@ -75,6 +75,16 @@
 							{
 								"key": "Content-Type",
 								"value": "application/json"
+							},
+							{
+								"key": "x-username",
+								"value": "admin",
+								"type": "text"
+							},
+							{
+								"key": "x-role",
+								"value": "adminrole",
+								"type": "text"
 							}
 						],
 						"body": {
@@ -118,6 +128,16 @@
 							{
 								"key": "Content-Type",
 								"value": "application/json"
+							},
+							{
+								"key": "x-username",
+								"value": "user1",
+								"type": "text"
+							},
+							{
+								"key": "x-role",
+								"value": "custrole",
+								"type": "text"
 							}
 						],
 						"body": {
@@ -161,6 +181,16 @@
 							{
 								"key": "Content-Type",
 								"value": "application/json"
+							},
+							{
+								"key": "x-username",
+								"value": "user1",
+								"type": "text"
+							},
+							{
+								"key": "x-role",
+								"value": "custrole",
+								"type": "text"
 							}
 						],
 						"body": {
@@ -204,6 +234,16 @@
 							{
 								"key": "Content-Type",
 								"value": "application/json"
+							},
+							{
+								"key": "x-username",
+								"value": "user1",
+								"type": "text"
+							},
+							{
+								"key": "x-role",
+								"value": "custrole",
+								"type": "text"
 							}
 						],
 						"body": {
@@ -247,6 +287,16 @@
 							{
 								"key": "Content-Type",
 								"value": "application/json"
+							},
+							{
+								"key": "x-username",
+								"value": "user1",
+								"type": "text"
+							},
+							{
+								"key": "x-role",
+								"value": "custrole",
+								"type": "text"
 							}
 						],
 						"body": {
@@ -290,6 +340,16 @@
 							{
 								"key": "Content-Type",
 								"value": "application/json"
+							},
+							{
+								"key": "x-username",
+								"value": "user1",
+								"type": "text"
+							},
+							{
+								"key": "x-role",
+								"value": "custrole",
+								"type": "text"
 							}
 						],
 						"body": {
@@ -333,6 +393,16 @@
 							{
 								"key": "Content-Type",
 								"value": "application/json"
+							},
+							{
+								"key": "x-username",
+								"value": "user1",
+								"type": "text"
+							},
+							{
+								"key": "x-role",
+								"value": "custrole",
+								"type": "text"
 							}
 						],
 						"body": {
@@ -376,11 +446,127 @@
 							{
 								"key": "Content-Type",
 								"value": "application/json"
+							},
+							{
+								"key": "x-username",
+								"value": "user1",
+								"type": "text"
+							},
+							{
+								"key": "x-role",
+								"value": "custrole",
+								"type": "text"
 							}
 						],
 						"body": {
 							"mode": "raw",
 							"raw": "{\n    \"name\": \"Red Lobster\",\n    \"address\": \"Calle Alcala, 54\",\n    \"city\": \"Madrid\",\n    \"phone\": \"627339911\",\n    \"zipcode\": \"28925AAA\",\n    \"province\": \"Madrid\",\n    \"country\": \"Spain\",\n    \"email\": \"user@gmail.com\",\n    \"website\": \"http://riapWgHPtmwJiT.kiR4,f8QsmHIcGKiw,wq-,2tY6mE\",\n    \"description\": \"The restaurant covers the whole ground floor and is organizaed in two dining rooms\",\n    \"foodType\": \"Mediterranean food\",\n    \"averageAmountPerPerson\": 35\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/restaurants",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"restaurants"
+							]
+						},
+						"description": "Create a new restaurant"
+					},
+					"response": []
+				},
+				{
+					"name": "09.400",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "x-username",
+								"value": "user1",
+								"type": "text"
+							},
+							{
+								"key": "",
+								"value": "",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Red Lobster\",\n    \"address\": \"Calle Alcala, 54\",\n    \"city\": \"Madrid\",\n    \"phone\": \"627339911\",\n    \"zipcode\": \"28925AAA\",\n    \"province\": \"Madrid\",\n    \"country\": \"Spain\",\n    \"email\": \"user@gmail.com\",\n    \"website\": \"http://riapWgHPtmwJiT.kiR4,f8QsmHIcGKiw,wq-,2tY6mE\",\n    \"description\": \"The restaurant covers the whole ground floor and is organizaed in two dining rooms\",\n    \"foodType\": \"Mediterranean food\",\n    \"averageAmountPerPerson\": 35\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/restaurants",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"restaurants"
+							]
+						},
+						"description": "Create a new restaurant"
+					},
+					"response": []
+				},
+				{
+					"name": "10.403",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 403\", function () {\r",
+									"    pm.response.to.have.status(403);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "x-username",
+								"value": "cust1",
+								"type": "text"
+							},
+							{
+								"key": "x-role",
+								"value": "custrole",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Red Lobster\",\n    \"address\": \"Calle Alcala, 54\",\n    \"city\": \"Madrid\",\n    \"phone\": \"627339911\",\n    \"zipcode\": \"28925\",\n    \"province\": \"Madrid\",\n    \"country\": \"Spain\",\n    \"email\": \"user@gmail.com\",\n    \"website\": \"http://riapWgHPtmwJiT.kiR4,f8QsmHIcGKiw,wq-,2tY6mE\",\n    \"description\": \"The restaurant covers the whole ground floor and is organizaed in two dining rooms\",\n    \"foodType\": \"Mediterranean food\",\n    \"averageAmountPerPerson\": 35\n}"
 						},
 						"url": {
 							"raw": "{{baseUrl}}/restaurants",
@@ -408,7 +594,7 @@
 							"script": {
 								"exec": [
 									"pm.test(\"Status code is 200\", function () {\r",
-									"    pm.response.to.have.status(400);\r",
+									"    pm.response.to.have.status(200);\r",
 									"});"
 								],
 								"type": "text/javascript"
@@ -491,8 +677,8 @@
 							"listen": "test",
 							"script": {
 								"exec": [
-									"pm.test(\"Status code is 200\", function () {\r",
-									"    pm.response.to.have.status(200);\r",
+									"pm.test(\"Status code is 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
 									"});"
 								],
 								"type": "text/javascript"
@@ -532,6 +718,64 @@
 			"name": "04.DEL.RestaurantById",
 			"item": [
 				{
+					"name": "00.403",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 403\", function () {\r",
+									"    pm.response.to.have.status(403);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "x-username",
+								"value": "user",
+								"type": "text"
+							},
+							{
+								"key": "x-role",
+								"value": "custrole",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/restaurants/:restaurantId",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"restaurants",
+								":restaurantId"
+							],
+							"variable": [
+								{
+									"key": "restaurantId",
+									"value": "{{restaurant}}",
+									"description": "(Required) The restaurant identifier."
+								}
+							]
+						},
+						"description": "Delete a restaurant given its identifier\n"
+					},
+					"response": []
+				},
+				{
 					"name": "01.204",
 					"event": [
 						{
@@ -555,6 +799,16 @@
 							{
 								"key": "Content-Type",
 								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "x-username",
+								"value": "admin",
+								"type": "text"
+							},
+							{
+								"key": "x-role",
+								"value": "adminrole",
 								"type": "text"
 							}
 						],
@@ -599,7 +853,18 @@
 							"type": "noauth"
 						},
 						"method": "DELETE",
-						"header": [],
+						"header": [
+							{
+								"key": "x-username",
+								"value": "admin",
+								"type": "text"
+							},
+							{
+								"key": "x-role",
+								"value": "adminrole",
+								"type": "text"
+							}
+						],
 						"url": {
 							"raw": "{{baseUrl}}/restaurants/:restaurantId",
 							"host": [
@@ -641,7 +906,66 @@
 							"type": "noauth"
 						},
 						"method": "DELETE",
-						"header": [],
+						"header": [
+							{
+								"key": "x-username",
+								"value": "admin",
+								"type": "text"
+							},
+							{
+								"key": "x-role",
+								"value": "adminrole",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/restaurants/:restaurantId",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"restaurants",
+								":restaurantId"
+							],
+							"variable": [
+								{
+									"key": "restaurantId",
+									"value": "1",
+									"description": "(Required) The restaurant identifier."
+								}
+							]
+						},
+						"description": "Delete a restaurant given its identifier\n"
+					},
+					"response": []
+				},
+				{
+					"name": "04.400",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "x-username",
+								"value": "admin",
+								"type": "text"
+							}
+						],
 						"url": {
 							"raw": "{{baseUrl}}/restaurants/:restaurantId",
 							"host": [
@@ -829,6 +1153,16 @@
 							{
 								"key": "Content-Type",
 								"value": "application/json"
+							},
+							{
+								"key": "x-username",
+								"value": "user1",
+								"type": "text"
+							},
+							{
+								"key": "x-role",
+								"value": "custrole",
+								"type": "text"
 							}
 						],
 						"body": {
@@ -881,6 +1215,16 @@
 							{
 								"key": "Content-Type",
 								"value": "application/json"
+							},
+							{
+								"key": "x-username",
+								"value": "user1",
+								"type": "text"
+							},
+							{
+								"key": "x-role",
+								"value": "custrole",
+								"type": "text"
 							}
 						],
 						"body": {
@@ -900,7 +1244,7 @@
 							"variable": [
 								{
 									"key": "restaurantId",
-									"value": "e51e8252-ac48-4c4e-8c03-d1803fe4b1a9",
+									"value": "e51e8252-ac48-4c4e-8c03-d1803fe4b1a7",
 									"description": "(Required) The restaurant identifier."
 								}
 							]
@@ -933,6 +1277,16 @@
 							{
 								"key": "Content-Type",
 								"value": "application/json"
+							},
+							{
+								"key": "x-username",
+								"value": "user1",
+								"type": "text"
+							},
+							{
+								"key": "x-role",
+								"value": "custrole",
+								"type": "text"
 							}
 						],
 						"body": {
@@ -985,6 +1339,16 @@
 							{
 								"key": "Content-Type",
 								"value": "application/json"
+							},
+							{
+								"key": "x-username",
+								"value": "user1",
+								"type": "text"
+							},
+							{
+								"key": "x-role",
+								"value": "custrole",
+								"type": "text"
 							}
 						],
 						"body": {
@@ -1020,8 +1384,8 @@
 							"listen": "test",
 							"script": {
 								"exec": [
-									"pm.test(\"Status code is 404\", function () {\r",
-									"    pm.response.to.have.status(404);\r",
+									"pm.test(\"Status code is 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
 									"});"
 								],
 								"type": "text/javascript"
@@ -1037,6 +1401,16 @@
 							{
 								"key": "Content-Type",
 								"value": "application/json"
+							},
+							{
+								"key": "x-username",
+								"value": "user1",
+								"type": "text"
+							},
+							{
+								"key": "x-role",
+								"value": "custrole",
+								"type": "text"
 							}
 						],
 						"body": {
@@ -1072,8 +1446,8 @@
 							"listen": "test",
 							"script": {
 								"exec": [
-									"pm.test(\"Status code is 404\", function () {\r",
-									"    pm.response.to.have.status(404);\r",
+									"pm.test(\"Status code is 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
 									"});"
 								],
 								"type": "text/javascript"
@@ -1089,6 +1463,16 @@
 							{
 								"key": "Content-Type",
 								"value": "application/json"
+							},
+							{
+								"key": "x-username",
+								"value": "user1",
+								"type": "text"
+							},
+							{
+								"key": "x-role",
+								"value": "custrole",
+								"type": "text"
 							}
 						],
 						"body": {
@@ -1162,7 +1546,7 @@
 								},
 								{
 									"key": "reviewId",
-									"value": "e4cdf362-3bc8-4fe8-a472-b75ec09d30e4",
+									"value": "{{review}}",
 									"description": "(Required) The review identifier."
 								}
 							]
@@ -1396,6 +1780,16 @@
 							{
 								"key": "Content-Type",
 								"value": "application/json"
+							},
+							{
+								"key": "x-username",
+								"value": "user1",
+								"type": "text"
+							},
+							{
+								"key": "x-role",
+								"value": "custrole",
+								"type": "text"
 							}
 						],
 						"body": {
@@ -1454,6 +1848,16 @@
 							{
 								"key": "Content-Type",
 								"value": "application/json"
+							},
+							{
+								"key": "x-username",
+								"value": "user1",
+								"type": "text"
+							},
+							{
+								"key": "x-role",
+								"value": "custrole",
+								"type": "text"
 							}
 						],
 						"body": {
@@ -1512,6 +1916,16 @@
 							{
 								"key": "Content-Type",
 								"value": "application/json"
+							},
+							{
+								"key": "x-username",
+								"value": "user1",
+								"type": "text"
+							},
+							{
+								"key": "x-role",
+								"value": "custrole",
+								"type": "text"
 							}
 						],
 						"body": {
@@ -1570,6 +1984,16 @@
 							{
 								"key": "Content-Type",
 								"value": "application/json"
+							},
+							{
+								"key": "x-username",
+								"value": "user1",
+								"type": "text"
+							},
+							{
+								"key": "x-role",
+								"value": "custrole",
+								"type": "text"
 							}
 						],
 						"body": {
@@ -1628,6 +2052,16 @@
 							{
 								"key": "Content-Type",
 								"value": "application/json"
+							},
+							{
+								"key": "x-username",
+								"value": "user1",
+								"type": "text"
+							},
+							{
+								"key": "x-role",
+								"value": "custrole",
+								"type": "text"
 							}
 						],
 						"body": {
@@ -1818,7 +2252,7 @@
 					],
 					"request": {
 						"auth": {
-							"type": "noauth"
+							"type": "oauth2"
 						},
 						"method": "GET",
 						"header": [],
@@ -1867,7 +2301,7 @@
 					],
 					"request": {
 						"auth": {
-							"type": "noauth"
+							"type": "oauth2"
 						},
 						"method": "GET",
 						"header": [],
@@ -2037,7 +2471,7 @@
 								},
 								{
 									"key": "menuId",
-									"value": "e51e8252-ac48-4c4e-8a32-d1803fe4baa9",
+									"value": "1",
 									"description": "(Required) The menu identifier."
 								}
 							]
@@ -2071,7 +2505,18 @@
 							"type": "noauth"
 						},
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "x-username",
+								"value": "admin",
+								"type": "text"
+							},
+							{
+								"key": "x-role",
+								"value": "adminrole",
+								"type": "text"
+							}
+						],
 						"url": {
 							"raw": "{{baseUrl}}/restaurants/:restaurantId/bookings",
 							"host": [
@@ -2114,7 +2559,18 @@
 							"type": "noauth"
 						},
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "x-username",
+								"value": "admin",
+								"type": "text"
+							},
+							{
+								"key": "x-role",
+								"value": "adminrole",
+								"type": "text"
+							}
+						],
 						"url": {
 							"raw": "{{baseUrl}}/restaurants/:restaurantId/bookings",
 							"host": [
@@ -2157,7 +2613,18 @@
 							"type": "noauth"
 						},
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "x-username",
+								"value": "admin",
+								"type": "text"
+							},
+							{
+								"key": "x-role",
+								"value": "adminrole",
+								"type": "text"
+							}
+						],
 						"url": {
 							"raw": "{{baseUrl}}/restaurants/:restaurantId/bookings",
 							"host": [
@@ -2172,6 +2639,114 @@
 								{
 									"key": "restaurantId",
 									"value": "1",
+									"description": "(Required) The restaurant identifier."
+								}
+							]
+						},
+						"description": "Get booking list for the restaurant"
+					},
+					"response": []
+				},
+				{
+					"name": "05.400",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-username",
+								"value": "admin",
+								"type": "text"
+							},
+							{
+								"key": "",
+								"value": "",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/restaurants/:restaurantId/bookings",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"restaurants",
+								":restaurantId",
+								"bookings"
+							],
+							"variable": [
+								{
+									"key": "restaurantId",
+									"value": "1",
+									"description": "(Required) The restaurant identifier."
+								}
+							]
+						},
+						"description": "Get booking list for the restaurant"
+					},
+					"response": []
+				},
+				{
+					"name": "04.403",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 403\", function () {\r",
+									"    pm.response.to.have.status(403);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-username",
+								"value": "user",
+								"type": "text"
+							},
+							{
+								"key": "x-role",
+								"value": "custrole",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/restaurants/:restaurantId/bookings",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"restaurants",
+								":restaurantId",
+								"bookings"
+							],
+							"variable": [
+								{
+									"key": "restaurantId",
+									"value": "e51e8252-ac48-4c4e-8c03-d1803fe4b1a2",
 									"description": "(Required) The restaurant identifier."
 								}
 							]
@@ -2212,6 +2787,16 @@
 							{
 								"key": "Content-Type",
 								"value": "application/json"
+							},
+							{
+								"key": "x-username",
+								"value": "user1",
+								"type": "text"
+							},
+							{
+								"key": "x-role",
+								"value": "custrole",
+								"type": "text"
 							}
 						],
 						"body": {
@@ -2264,6 +2849,16 @@
 							{
 								"key": "Content-Type",
 								"value": "application/json"
+							},
+							{
+								"key": "x-username",
+								"value": "user1",
+								"type": "text"
+							},
+							{
+								"key": "x-role",
+								"value": "custrole",
+								"type": "text"
 							}
 						],
 						"body": {
@@ -2316,6 +2911,16 @@
 							{
 								"key": "Content-Type",
 								"value": "application/json"
+							},
+							{
+								"key": "x-username",
+								"value": "user1",
+								"type": "text"
+							},
+							{
+								"key": "x-role",
+								"value": "custrole",
+								"type": "text"
 							}
 						],
 						"body": {
@@ -2368,6 +2973,16 @@
 							{
 								"key": "Content-Type",
 								"value": "application/json"
+							},
+							{
+								"key": "x-username",
+								"value": "user1",
+								"type": "text"
+							},
+							{
+								"key": "x-role",
+								"value": "custrole",
+								"type": "text"
 							}
 						],
 						"body": {
@@ -2420,6 +3035,16 @@
 							{
 								"key": "Content-Type",
 								"value": "application/json"
+							},
+							{
+								"key": "x-username",
+								"value": "user1",
+								"type": "text"
+							},
+							{
+								"key": "x-role",
+								"value": "custrole",
+								"type": "text"
 							}
 						],
 						"body": {
@@ -2472,6 +3097,16 @@
 							{
 								"key": "Content-Type",
 								"value": "application/json"
+							},
+							{
+								"key": "x-username",
+								"value": "user1",
+								"type": "text"
+							},
+							{
+								"key": "x-role",
+								"value": "custrole",
+								"type": "text"
 							}
 						],
 						"body": {
@@ -2524,6 +3159,16 @@
 							{
 								"key": "Content-Type",
 								"value": "application/json"
+							},
+							{
+								"key": "x-username",
+								"value": "user1",
+								"type": "text"
+							},
+							{
+								"key": "x-role",
+								"value": "custrole",
+								"type": "text"
 							}
 						],
 						"body": {
@@ -2576,6 +3221,16 @@
 							{
 								"key": "Content-Type",
 								"value": "application/json"
+							},
+							{
+								"key": "x-username",
+								"value": "user1",
+								"type": "text"
+							},
+							{
+								"key": "x-role",
+								"value": "custrole",
+								"type": "text"
 							}
 						],
 						"body": {
@@ -2610,14 +3265,14 @@
 			"name": "13.GET.BookingById",
 			"item": [
 				{
-					"name": "01.200",
+					"name": "00.403",
 					"event": [
 						{
 							"listen": "test",
 							"script": {
 								"exec": [
-									"pm.test(\"Status code is 200\", function () {\r",
-									"    pm.response.to.have.status(200);\r",
+									"pm.test(\"Status code is 403\", function () {\r",
+									"    pm.response.to.have.status(403);\r",
 									"});"
 								],
 								"type": "text/javascript"
@@ -2629,7 +3284,18 @@
 							"type": "noauth"
 						},
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "x-username",
+								"value": "user",
+								"type": "text"
+							},
+							{
+								"key": "x-role",
+								"value": "custrole",
+								"type": "text"
+							}
+						],
 						"url": {
 							"raw": "{{baseUrl}}/restaurants/:restaurantId/bookings/:bookingId",
 							"host": [
@@ -2649,7 +3315,67 @@
 								},
 								{
 									"key": "bookingId",
-									"value": "98bdd814-3d54-4ef2-b6f4-90d8108f11c7",
+									"value": "{{booking}}",
+									"description": "(Required) The booking identifier."
+								}
+							]
+						},
+						"description": "Get a booking by identifier for the restaurant"
+					},
+					"response": []
+				},
+				{
+					"name": "01.200",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-username",
+								"value": "admin",
+								"type": "text"
+							},
+							{
+								"key": "x-role",
+								"value": "adminrole",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/restaurants/:restaurantId/bookings/:bookingId",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"restaurants",
+								":restaurantId",
+								"bookings",
+								":bookingId"
+							],
+							"variable": [
+								{
+									"key": "restaurantId",
+									"value": "e51e8252-ac48-4c4e-8c03-d1803fe4b1a2",
+									"description": "(Required) The restaurant identifier."
+								},
+								{
+									"key": "bookingId",
+									"value": "{{booking}}",
 									"description": "(Required) The booking identifier."
 								}
 							]
@@ -2678,7 +3404,18 @@
 							"type": "noauth"
 						},
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "x-username",
+								"value": "admin",
+								"type": "text"
+							},
+							{
+								"key": "x-role",
+								"value": "adminrole",
+								"type": "text"
+							}
+						],
 						"url": {
 							"raw": "{{baseUrl}}/restaurants/:restaurantId/bookings/:bookingId",
 							"host": [
@@ -2698,7 +3435,7 @@
 								},
 								{
 									"key": "bookingId",
-									"value": "98bdd814-3d54-4ef2-b6f4-90d8108f11c7",
+									"value": "{{booking}}",
 									"description": "(Required) The booking identifier."
 								}
 							]
@@ -2727,7 +3464,18 @@
 							"type": "noauth"
 						},
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "x-username",
+								"value": "admin",
+								"type": "text"
+							},
+							{
+								"key": "x-role",
+								"value": "adminrole",
+								"type": "text"
+							}
+						],
 						"url": {
 							"raw": "{{baseUrl}}/restaurants/:restaurantId/bookings/:bookingId",
 							"host": [
@@ -2776,7 +3524,18 @@
 							"type": "noauth"
 						},
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "x-username",
+								"value": "admin",
+								"type": "text"
+							},
+							{
+								"key": "x-role",
+								"value": "adminrole",
+								"type": "text"
+							}
+						],
 						"url": {
 							"raw": "{{baseUrl}}/restaurants/:restaurantId/bookings/:bookingId",
 							"host": [
@@ -2807,6 +3566,66 @@
 				},
 				{
 					"name": "05.400",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-username",
+								"value": "admin",
+								"type": "text"
+							},
+							{
+								"key": "x-role",
+								"value": "adminrole",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/restaurants/:restaurantId/bookings/:bookingId",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"restaurants",
+								":restaurantId",
+								"bookings",
+								":bookingId"
+							],
+							"variable": [
+								{
+									"key": "restaurantId",
+									"value": "e51e8252-ac48-4c4e-8c03-d1803fe4b1a2",
+									"description": "(Required) The restaurant identifier."
+								},
+								{
+									"key": "bookingId",
+									"value": "1",
+									"description": "(Required) The booking identifier."
+								}
+							]
+						},
+						"description": "Get a booking by identifier for the restaurant"
+					},
+					"response": []
+				},
+				{
+					"name": "06.400",
 					"event": [
 						{
 							"listen": "test",
@@ -2879,7 +3698,18 @@
 							"type": "noauth"
 						},
 						"method": "DELETE",
-						"header": [],
+						"header": [
+							{
+								"key": "x-username",
+								"value": "admin",
+								"type": "text"
+							},
+							{
+								"key": "x-role",
+								"value": "adminrole",
+								"type": "text"
+							}
+						],
 						"url": {
 							"raw": "{{baseUrl}}/restaurants/:restaurantId/bookings/:bookingId",
 							"host": [
@@ -2928,7 +3758,18 @@
 							"type": "noauth"
 						},
 						"method": "DELETE",
-						"header": [],
+						"header": [
+							{
+								"key": "x-username",
+								"value": "admin",
+								"type": "text"
+							},
+							{
+								"key": "x-role",
+								"value": "adminrole",
+								"type": "text"
+							}
+						],
 						"url": {
 							"raw": "{{baseUrl}}/restaurants/:restaurantId/bookings/:bookingId",
 							"host": [
@@ -2948,7 +3789,7 @@
 								},
 								{
 									"key": "bookingId",
-									"value": "urn:uuid:2c2dc5a0-f277-7ff6-642a-e380b8be0b7d",
+									"value": "{{booking}}",
 									"description": "(Required) The booking identifier."
 								}
 							]
@@ -2977,7 +3818,18 @@
 							"type": "noauth"
 						},
 						"method": "DELETE",
-						"header": [],
+						"header": [
+							{
+								"key": "x-username",
+								"value": "admin",
+								"type": "text"
+							},
+							{
+								"key": "x-role",
+								"value": "adminrole",
+								"type": "text"
+							}
+						],
 						"url": {
 							"raw": "{{baseUrl}}/restaurants/:restaurantId/bookings/:bookingId",
 							"host": [
@@ -3026,7 +3878,18 @@
 							"type": "noauth"
 						},
 						"method": "DELETE",
-						"header": [],
+						"header": [
+							{
+								"key": "x-username",
+								"value": "admin",
+								"type": "text"
+							},
+							{
+								"key": "x-role",
+								"value": "adminrole",
+								"type": "text"
+							}
+						],
 						"url": {
 							"raw": "{{baseUrl}}/restaurants/:restaurantId/bookings/:bookingId",
 							"host": [
@@ -3075,7 +3938,18 @@
 							"type": "noauth"
 						},
 						"method": "DELETE",
-						"header": [],
+						"header": [
+							{
+								"key": "x-username",
+								"value": "admin",
+								"type": "text"
+							},
+							{
+								"key": "x-role",
+								"value": "adminrole",
+								"type": "text"
+							}
+						],
 						"url": {
 							"raw": "{{baseUrl}}/restaurants/:restaurantId/bookings/:bookingId",
 							"host": [
@@ -3101,6 +3975,402 @@
 							]
 						},
 						"description": "Delete a restaurant booking given its identifier\n"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "15.BOLA.Booking",
+			"item": [
+				{
+					"name": "01.CREATE",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"});\r",
+									"\r",
+									"var jsonData = JSON.parse(responseBody);\r",
+									"postman.setEnvironmentVariable(\"booking2\", jsonData.id);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "x-username",
+								"value": "user1",
+								"type": "text"
+							},
+							{
+								"key": "x-role",
+								"value": "custrole",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"bookingDate\": \"1969-06-27T23:19:20.259Z\",\n    \"numberOfPeople\": 3,\n    \"name\": \"Luis Garcia\",\n    \"phone\": \"627339911\",\n    \"email\": \"user@gmail.com\",\n    \"comments\": \"I would like to have a table near the window\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/restaurants/:restaurantId/bookings",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"restaurants",
+								":restaurantId",
+								"bookings"
+							],
+							"variable": [
+								{
+									"key": "restaurantId",
+									"value": "e51e8252-ac48-4c4e-8c03-d1803fe4b1a2",
+									"description": "(Required) The restaurant identifier."
+								}
+							]
+						},
+						"description": "Create a new booking for the restaurant"
+					},
+					"response": []
+				},
+				{
+					"name": "02.DELETE.403",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 403\", function () {\r",
+									"    pm.response.to.have.status(403);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "x-username",
+								"value": "user2",
+								"type": "text"
+							},
+							{
+								"key": "x-role",
+								"value": "custrole",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/restaurants/:restaurantId/bookings/:bookingId",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"restaurants",
+								":restaurantId",
+								"bookings",
+								":bookingId"
+							],
+							"variable": [
+								{
+									"key": "restaurantId",
+									"value": "e51e8252-ac48-4c4e-8c03-d1803fe4b1a2",
+									"description": "(Required) The restaurant identifier."
+								},
+								{
+									"key": "bookingId",
+									"value": "{{booking2}}",
+									"description": "(Required) The booking identifier."
+								}
+							]
+						},
+						"description": "Delete a restaurant booking given its identifier\n"
+					},
+					"response": []
+				},
+				{
+					"name": "02.DELETE.204",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 204\", function () {\r",
+									"    pm.response.to.have.status(204);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "x-username",
+								"value": "user1",
+								"type": "text"
+							},
+							{
+								"key": "x-role",
+								"value": "custrole",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/restaurants/:restaurantId/bookings/:bookingId",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"restaurants",
+								":restaurantId",
+								"bookings",
+								":bookingId"
+							],
+							"variable": [
+								{
+									"key": "restaurantId",
+									"value": "e51e8252-ac48-4c4e-8c03-d1803fe4b1a2",
+									"description": "(Required) The restaurant identifier."
+								},
+								{
+									"key": "bookingId",
+									"value": "{{booking2}}",
+									"description": "(Required) The booking identifier."
+								}
+							]
+						},
+						"description": "Delete a restaurant booking given its identifier\n"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "16.BOLA.Review",
+			"item": [
+				{
+					"name": "01.CREATE",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"});\r",
+									"\r",
+									"var jsonData = JSON.parse(responseBody);\r",
+									"postman.setEnvironmentVariable(\"review2\", jsonData.id);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "x-username",
+								"value": "user1",
+								"type": "text"
+							},
+							{
+								"key": "x-role",
+								"value": "custrole",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"senderNick\": \"user5\",\n    \"stars\": 2,\n    \"title\": \"This is a review title example\",\n    \"description\": \"This is a review text example\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/restaurants/:restaurantId/reviews",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"restaurants",
+								":restaurantId",
+								"reviews"
+							],
+							"variable": [
+								{
+									"key": "restaurantId",
+									"value": "e51e8252-ac48-4c4e-8c03-d1803fe4b1a2",
+									"description": "(Required) The restaurant identifier."
+								}
+							]
+						},
+						"description": "Create a restaurant review"
+					},
+					"response": []
+				},
+				{
+					"name": "02.UPDATE.403",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 403\", function () {\r",
+									"    pm.response.to.have.status(403);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "x-username",
+								"value": "user2",
+								"type": "text"
+							},
+							{
+								"key": "x-role",
+								"value": "custrole",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"senderNick\": \"user0089\",\n    \"stars\": 5,\n    \"title\": \"This is a review title example\",\n    \"description\": \"This is a review text example\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/restaurants/:restaurantId/reviews/:reviewId",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"restaurants",
+								":restaurantId",
+								"reviews",
+								":reviewId"
+							],
+							"variable": [
+								{
+									"key": "restaurantId",
+									"value": "e51e8252-ac48-4c4e-8c03-d1803fe4b1a2",
+									"description": "(Required) The restaurant identifier."
+								},
+								{
+									"key": "reviewId",
+									"value": "{{review2}}",
+									"description": "(Required) The review identifier."
+								}
+							]
+						},
+						"description": "Update restaurant review by Id"
+					},
+					"response": []
+				},
+				{
+					"name": "02.UPDATE.200",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "x-username",
+								"value": "user1",
+								"type": "text"
+							},
+							{
+								"key": "x-role",
+								"value": "custrole",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"senderNick\": \"user0089\",\n    \"stars\": 5,\n    \"title\": \"This is a review title example\",\n    \"description\": \"This is a review text example\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/restaurants/:restaurantId/reviews/:reviewId",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"restaurants",
+								":restaurantId",
+								"reviews",
+								":reviewId"
+							],
+							"variable": [
+								{
+									"key": "restaurantId",
+									"value": "e51e8252-ac48-4c4e-8c03-d1803fe4b1a2",
+									"description": "(Required) The restaurant identifier."
+								},
+								{
+									"key": "reviewId",
+									"value": "{{review2}}",
+									"description": "(Required) The review identifier."
+								}
+							]
+						},
+						"description": "Update restaurant review by Id"
 					},
 					"response": []
 				}

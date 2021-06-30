@@ -2,6 +2,7 @@ package com.gmm.restaurants.controllers;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -63,9 +64,9 @@ public class RestaurantsControllerTest {
     @Test
     public void shouldCreateRestaurantOK() {
         RestaurantModel mockData = this.generateRestaurant();
-        when(service.create(any())).thenReturn(mockData);
+        when(service.create(anyString(), anyString(), any())).thenReturn(mockData);
 
-        ResponseEntity<RestaurantModel> response = controller.createRestaurant(this.generateRestaurantRequest());
+        ResponseEntity<RestaurantModel> response = controller.createRestaurant("user", "role", this.generateRestaurantRequest());
         assertThat(response).isNotNull();
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.CREATED);
         assertThat(response.getBody()).isNotNull();
@@ -74,8 +75,8 @@ public class RestaurantsControllerTest {
 
     @Test(expected = NullPointerException.class)
     public void shouldGetExceptionWhenServiceCreateFail() {
-        when(service.create(any())).thenThrow(new NullPointerException());
-        controller.createRestaurant(this.generateRestaurantRequest());
+        when(service.create(anyString(), anyString(), any())).thenThrow(new NullPointerException());
+        controller.createRestaurant("user", "role", this.generateRestaurantRequest());
     }
 
     //GET /restaurants/{restaurantId}
@@ -107,8 +108,8 @@ public class RestaurantsControllerTest {
     @Test
     public void shouldDeleteRestaurantsByIdOK() {
 
-        controller.deleteRestaurant(UUID.randomUUID());
-        verify(service).delete(any());
+        controller.deleteRestaurant("user", "role", UUID.randomUUID());
+        verify(service).delete(anyString(), anyString(), any());
     }
 
     private List<RestaurantModel> generateRestaurantList() {

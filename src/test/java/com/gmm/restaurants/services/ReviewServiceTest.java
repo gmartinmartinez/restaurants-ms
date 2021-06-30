@@ -7,6 +7,7 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import com.gmm.restaurants.exceptions.ForbiddenResourceException;
 import com.gmm.restaurants.exceptions.NotFoundException;
 import com.gmm.restaurants.model.api.RestaurantModel;
 import com.gmm.restaurants.model.api.RestaurantRequestModel;
@@ -27,6 +28,7 @@ import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
+import org.springframework.orm.jpa.JpaObjectRetrievalFailureException;
 import uk.co.jemos.podam.api.PodamFactory;
 import uk.co.jemos.podam.api.PodamFactoryImpl;
 
@@ -86,7 +88,7 @@ public class ReviewServiceTest {
         when(restaurantRepository.getOne(any())).thenReturn(restaurant);
         when(reviewRepository.saveAndFlush(any())).thenReturn(mockData);
 
-        ReviewModel response = service.create(UUID.randomUUID().toString(), request);
+        ReviewModel response = service.create("admin", "adminrole", UUID.randomUUID().toString(), request);
         assertThat(response).isNotNull();
         assertThat(response.getId()).isEqualTo(mockData.getId());
         assertThat(response.getStars()).isEqualTo(mockData.getStars());
@@ -94,14 +96,43 @@ public class ReviewServiceTest {
     }
 
     @Test
-    public void shouldUpdateReviewList() {
+    public void shouldCreateReviewCust() {
+        ReviewEntity mockData = review;
+        when(restaurantRepository.getOne(any())).thenReturn(restaurant);
+        when(reviewRepository.saveAndFlush(any())).thenReturn(mockData);
+
+        ReviewModel response = service.create("user", "custrole", UUID.randomUUID().toString(), request);
+        assertThat(response).isNotNull();
+        assertThat(response.getId()).isEqualTo(mockData.getId());
+        assertThat(response.getStars()).isEqualTo(mockData.getStars());
+        assertThat(response.getTitle()).isEqualTo(mockData.getTitle());
+    }
+
+    @Test
+    public void shouldUpdateReview() {
         ReviewEntity mockData = review;
         when(restaurantRepository.getOne(any())).thenReturn(restaurant);
         when(reviewRepository.getOne(any())).thenReturn(mockData);
         when(reviewRepository.saveAndFlush(any())).thenReturn(mockData);
 
         String id = UUID.randomUUID().toString();
-        ReviewModel response = service.update(id, id, request);
+        ReviewModel response = service.update("admin", "adminrole", id, id, request);
+
+        assertThat(response).isNotNull();
+        assertThat(response.getId()).isEqualTo(mockData.getId());
+        assertThat(response.getDescription()).isEqualTo(mockData.getDescription());
+        assertThat(response.getStars()).isEqualTo(mockData.getStars());
+    }
+
+    @Test
+    public void shouldUpdateReviewCust() {
+        ReviewEntity mockData = review;
+        when(restaurantRepository.getOne(any())).thenReturn(restaurant);
+        when(reviewRepository.getOne(any())).thenReturn(mockData);
+        when(reviewRepository.saveAndFlush(any())).thenReturn(mockData);
+
+        String id = UUID.randomUUID().toString();
+        ReviewModel response = service.update("user", "custrole", id, id, request);
 
         assertThat(response).isNotNull();
         assertThat(response.getId()).isEqualTo(mockData.getId());
@@ -134,21 +165,43 @@ public class ReviewServiceTest {
     @Test(expected = NotFoundException.class)
     public void shouldGetNotFoundExceptionWhenCreate() {
         when(restaurantRepository.getOne(any())).thenThrow(new EntityNotFoundException());
-        service.create(UUID.randomUUID().toString(), this.request);
+        service.create("admin", "adminrole", UUID.randomUUID().toString(), this.request);
 
     }
 
     @Test(expected = NotFoundException.class)
     public void shouldGetNotFoundRestaurantExceptionWhenUpdateById() {
         when(restaurantRepository.getOne(any())).thenThrow(new EntityNotFoundException());
-        service.update(UUID.randomUUID().toString(), UUID.randomUUID().toString(), request);
+        service.update("admin", "adminrole", UUID.randomUUID().toString(), UUID.randomUUID().toString(), request);
     }
 
     @Test(expected = NotFoundException.class)
     public void shouldGetNotFoundExceptionWhenUpdateById() {
         when(restaurantRepository.getOne(any())).thenReturn(restaurant);
         when(reviewRepository.getOne(any())).thenThrow(new EntityNotFoundException());
-        service.update(UUID.randomUUID().toString(), UUID.randomUUID().toString(), request);
+        service.update("admin", "adminrole", UUID.randomUUID().toString(), UUID.randomUUID().toString(), request);
+    }
+
+
+    @Test(expected = ForbiddenResourceException.class)
+    public void shouldGetForbiddenResourceExceptionWhenCreate() {
+        when(restaurantRepository.getOne(any())).thenReturn(restaurant);
+        service.create("user", "restrole", UUID.randomUUID().toString(), this.request);
+
+    }
+
+    @Test(expected = ForbiddenResourceException.class)
+    public void shouldGetForbiddenResourceExceptionWhenUpdate() {
+        when(restaurantRepository.getOne(any())).thenReturn(restaurant);
+        service.update("user", "restrole", UUID.randomUUID().toString(), UUID.randomUUID().toString(), this.request);
+
+    }
+
+    @Test(expected = ForbiddenResourceException.class)
+    public void shouldGetForbiddenResourceExceptionWhenUpdateCustomer() {
+        when(restaurantRepository.getOne(any())).thenReturn(restaurant);
+        when(reviewRepository.getOne(any())).thenReturn(review);
+        service.update("user2", "custrole", UUID.randomUUID().toString(), UUID.randomUUID().toString(), this.request);
     }
 
     @Test
